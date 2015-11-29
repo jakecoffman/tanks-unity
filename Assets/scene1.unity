@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
-  turnSpeed: 2
+  turnSpeed: 4
 --- !u!50 &1483818492
 Rigidbody2D:
   serializedVersion: 2
@@ -263,7 +263,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 1483818489}
   m_Mass: 1
   m_LinearDrag: 10
-  m_AngularDrag: .0500000007
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_IsKinematic: 0
   m_Interpolate: 1

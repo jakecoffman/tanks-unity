@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour {
 
     public float speed = 60f;
-    public float turnSpeed = 1.5f;
+    public float turnSpeed = 2f;
 
     private float rotation = 0f;
 
@@ -21,16 +21,13 @@ public class PlayerMovement : MonoBehaviour {
     // called once per physics tick
     void FixedUpdate()
     {
-        rotation += Input.GetAxis("Horizontal") * turnSpeed;
+        rotation = Input.GetAxis("Horizontal") * turnSpeed;
         if (speed > 0)
         {
-            transform.eulerAngles = new Vector3(0, 0, -rotation);
+            rotation *= -1;
         }
-        else
-        {
-            transform.eulerAngles = new Vector3(0, 0, rotation);
-        }
-
+        transform.Rotate(new Vector3(0, 0, rotation));
+        
         //GetComponent<Rigidbody2D>().angularVelocity = 0;
         float forwardInput = Input.GetAxis("Vertical");
         GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * speed * forwardInput);
