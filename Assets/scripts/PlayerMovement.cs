@@ -1,27 +1,78 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : NetworkBehaviour {
 
-    public float speed = 60f;
-    public float turnSpeed = 2f;
+    public float speed = 20f;
+    public float turnSpeed = 3.5f;
+    public float shotSpeed = 10f;
+    public GameObject bulletPrefab;
 
     private float rotation = 0f;
+    private Transform turret;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public override void OnStartLocalPlayer()
+    {
+        turret.gameObject.GetComponent<Turret>().isLocalPlayer = isLocalPlayer;
+        foreach (SpriteRenderer r in GetComponentsInChildren<SpriteRenderer>())
+        {
+            r.material.color = Color.red;
+        }
+    }
+
+    void Awake()
+    {
+        turret = transform.GetChild(1);
+    }
 
     // called once per physics tick
     void FixedUpdate()
     {
-        rotation = Input.GetAxis("Horizontal") * turnSpeed;
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        Move();
+        if (Input.GetMouseButton(0))
+        {
+            CmdFire();
+        }
+    }
+
+    [Command]
+    void CmdFire()
+    {
+        var bullet = Instantiate(bulletPrefab, transform.position - transform.forward, Quaternion.identity) as GameObject;
+        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var rot = Quaternion.LookRotation(transform.position - mousePos, Vector3.forward);
+        bullet.transform.rotation = rot;
+        bullet.GetComponent<Rigidbody2D>().velocity = turret.up * shotSpeed;
+        NetworkServer.Spawn(bullet);
+        Destroy(bullet, 2.0f);
+    }
+
+    void Move()
+    {
+        float move = 0;
+        if(Input.GetKey(KeyCode.W))
+        {
+            move = speed;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            move = -speed;
+        }
+
+        rotation = 0;
+        if (Input.GetKey(KeyCode.A))
+        {
+            rotation = -turnSpeed;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            rotation = turnSpeed;
+        }
         if (speed > 0)
         {
             rotation *= -1;
@@ -29,7 +80,7 @@ public class PlayerMovement : MonoBehaviour {
         transform.Rotate(new Vector3(0, 0, rotation));
         
         //GetComponent<Rigidbody2D>().angularVelocity = 0;
-        float forwardInput = Input.GetAxis("Vertical");
-        GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * speed * forwardInput);
+        //float forwardInput = Input.GetAxis("Vertical");
+        GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * move);
     }
 }
