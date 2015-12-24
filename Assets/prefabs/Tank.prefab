@@ -46,6 +46,7 @@ GameObject:
   - 114: {fileID: 11479916}
   - 114: {fileID: 11458580}
   - 114: {fileID: 11462062}
+  - 114: {fileID: 11472600}
   m_Layer: 9
   m_Name: Tank
   m_TagString: Untagged
@@ -164,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 2
-  m_SendInterval: .100000001
+  m_SendInterval: .0476190485
   m_SyncRotationAxis: 3
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
@@ -184,6 +185,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLocalPlayer: 0
+--- !u!114 &11472600
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1267208747, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 405456}
+  m_ChildIndex: 0
+  m_SendInterval: .0909090936
+  m_SyncRotationAxis: 3
+  m_RotationSyncCompression: 0
+  m_MovementThreshold: .00100000005
+  m_InterpolateRotation: .5
+  m_InterpolateMovement: .5
 --- !u!114 &11479916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -197,6 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   turnSpeed: 3.5
+  shotSpeed: 10
   bulletPrefab: {fileID: 136752, guid: ec9ff227a16aa3a44995d162dbdca520, type: 2}
 --- !u!212 &21266198
 SpriteRenderer:
@@ -349,6 +370,18 @@ Prefab:
       propertyPath: bulletPrefab
       value: 
       objectReference: {fileID: 136752, guid: ec9ff227a16aa3a44995d162dbdca520, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_SendInterval
+      value: .0909090936
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ServerOnly
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Target
+      value: 
+      objectReference: {fileID: 405456}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 181264}

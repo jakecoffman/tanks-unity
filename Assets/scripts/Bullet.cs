@@ -5,7 +5,7 @@ public class Bullet : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        print("HERE");
+        Destroy(gameObject);
         var hit = collider.gameObject;
         if (hit.tag == "Player")
         {
@@ -20,5 +20,6 @@ public class Bullet : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
     {
         print("Collision");
+        Destroy(gameObject);
     }
 }

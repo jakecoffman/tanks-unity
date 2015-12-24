@@ -145,6 +145,8 @@ MonoBehaviour:
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 136752, guid: ec9ff227a16aa3a44995d162dbdca520, type: 2}
+  - {fileID: 118732, guid: d679789c22fda88418b3800281f31711, type: 2}
+  - {fileID: 166858, guid: a482c9fc88ed4d64eb55249619226e99, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -166,7 +168,7 @@ MonoBehaviour:
     m_MaxSentMessageQueueSize: 128
     m_IsAcksLong: 0
     m_Channels: []
-  m_Channels: 
+  m_Channels: 0500000000000000
   m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
@@ -199,6 +201,7 @@ GameObject:
   - 4: {fileID: 1360295686}
   - 114: {fileID: 1360295685}
   - 114: {fileID: 1360295684}
+  - 114: {fileID: 1360295687}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -235,22 +238,8 @@ MonoBehaviour:
     minimum: 5
     maximum: 9
   floorTiles:
-  - {fileID: 172652, guid: b1e7f8bbc3d0cd141b598e4e9a8afbc3, type: 2}
-  - {fileID: 150894, guid: 04de04326693f1c4286ac909e09aa7d8, type: 2}
-  - {fileID: 196598, guid: 42264ed69980b8446b072de7594350d1, type: 2}
-  - {fileID: 193052, guid: b7295806504823747b8c34c4f32c095b, type: 2}
-  - {fileID: 185472, guid: 2109107e80cb30b48856075bda65ebac, type: 2}
-  - {fileID: 162864, guid: be6aeb13dceb69344ae433860059a4f5, type: 2}
-  - {fileID: 101840, guid: 297301d566325cd499d32c1f6bcd48ff, type: 2}
   - {fileID: 166858, guid: a482c9fc88ed4d64eb55249619226e99, type: 2}
   wallTiles:
-  - {fileID: 180816, guid: 09731c0f3879c994a9aead8bb05c1357, type: 2}
-  - {fileID: 169036, guid: d45e4a34d60f0754f8948be6c9d4e05a, type: 2}
-  - {fileID: 105160, guid: 7825e4e5992e7f744ae1af20308f58f1, type: 2}
-  - {fileID: 128612, guid: f33cd9661c62e3c4f9209c7fb54369f3, type: 2}
-  - {fileID: 184478, guid: d5ffd38d5d6a76545930ba031fe746bb, type: 2}
-  - {fileID: 106036, guid: 39ed6adf7e4b6af4ea11d74df7ec5876, type: 2}
-  - {fileID: 160622, guid: 0e32876e9ce5f91499c11f21b9e5bd51, type: 2}
   - {fileID: 118732, guid: d679789c22fda88418b3800281f31711, type: 2}
 --- !u!4 &1360295686
 Transform:
@@ -264,6 +253,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &1360295687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1360295683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 1
+  m_LocalPlayerAuthority: 0
 --- !u!1 &1546366835
 GameObject:
   m_ObjectHideFlags: 0

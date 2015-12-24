@@ -25,7 +25,9 @@ public class BoardManager : NetworkBehaviour {
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
 
+    // just to keep the hierarchy clean
     private Transform boardHolder;
+    // just for randomness
     private List<Vector3> gridPositions = new List<Vector3>();
 
     void InitList()
@@ -58,6 +60,7 @@ public class BoardManager : NetworkBehaviour {
 
                 GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
                 instance.transform.SetParent(boardHolder);
+                NetworkServer.Spawn(instance);
             }
         }
     }
@@ -77,14 +80,18 @@ public class BoardManager : NetworkBehaviour {
         {
             Vector3 randomPos = RandomPos();
             GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
-            Instantiate(tileChoice, randomPos, Quaternion.identity);
+            GameObject instance = Instantiate(tileChoice, randomPos, Quaternion.identity) as GameObject;
+            NetworkServer.Spawn(instance);
         }
     }
 
     public void SetupScene(int level)
     {
+        // make outer walls
         BoardSetup();
+        // prepare for randomness
         InitList();
+        // make random interesting walls
         LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
     }
 }
