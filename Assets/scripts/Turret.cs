@@ -8,8 +8,7 @@ public class Turret : MonoBehaviour {
     [HideInInspector]
     public bool isLocalPlayer;
 
-	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 	    if (!isLocalPlayer)
         {
             return;

@@ -7,8 +7,11 @@ public class PlayerMovement : NetworkBehaviour {
     public float speed = 20f;
     public float turnSpeed = 3.5f;
     public float shotSpeed = 10f;
+    public int maxBullets = 3;
     public GameObject bulletPrefab;
 
+    private int currentBullets = 0;
+    private bool isFiring = false;
     private float rotation = 0f;
     private Transform turret;
 
@@ -21,13 +24,18 @@ public class PlayerMovement : NetworkBehaviour {
         }
     }
 
+    public override void OnStartServer()
+    {
+        
+    }
+
     void Awake()
     {
         turret = transform.GetChild(1);
     }
 
-    // called once per physics tick
-    void FixedUpdate()
+    // called each frame
+    void Update()
     {
         if (!isLocalPlayer)
         {
@@ -39,21 +47,31 @@ public class PlayerMovement : NetworkBehaviour {
             CmdFire();
         }
     }
+    
+    // called in constant intervals
+    void FixedUpdate()
+    {
+        
+    }
 
     [Command]
     void CmdFire()
     {
+        if (isFiring)
+        {
+            return;
+        }
+        isFiring = true;
         // place bullet
-        var bullet = Instantiate(bulletPrefab, transform.position - transform.forward, Quaternion.identity) as GameObject;
+        var bullet = Instantiate(bulletPrefab, turret.position + turret.up * 0.9f, Quaternion.identity) as GameObject;
 
         // set direction of bullet and rotation
-        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //var rot = Quaternion.LookRotation(transform.position - mousePos, transform.forward);
         bullet.transform.rotation = turret.rotation;
         bullet.GetComponent<Rigidbody2D>().velocity = turret.up * shotSpeed;
 
         NetworkServer.Spawn(bullet);
         Destroy(bullet, 2.0f);
+        isFiring = false;
     }
 
     void Move()
