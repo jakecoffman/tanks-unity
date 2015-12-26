@@ -7,10 +7,10 @@ public class PlayerMovement : NetworkBehaviour {
     public float speed = 20f;
     public float turnSpeed = 3.5f;
     public float shotSpeed = 10f;
-    public int maxBullets = 3;
+    public int maxBullets = 5;
     public GameObject bulletPrefab;
 
-    private int currentBullets = 0;
+    private int numBullets = 0;
     private bool isFiring = false;
     private float rotation = 0f;
     private Transform turret;
@@ -44,24 +44,32 @@ public class PlayerMovement : NetworkBehaviour {
         Move();
         if (Input.GetMouseButton(0))
         {
-            CmdFire();
+            StartCoroutine(Fire());
         }
     }
     
-    // called in constant intervals
-    void FixedUpdate()
+    IEnumerator Fire()
     {
-        
+        if (isFiring || numBullets >= maxBullets)
+        {
+            yield break;
+        }
+        isFiring = true;
+        numBullets++;
+        CmdFire();
+        yield return new WaitForSeconds(0.1f);
+        isFiring = false;
     }
 
     [Command]
     void CmdFire()
     {
-        if (isFiring)
-        {
-            return;
-        }
-        isFiring = true;
+        //if (isFiring || numBullets == 3)
+        //{
+        //    return;
+        //}
+        //isFiring = true;
+        //numBullets++;
         // place bullet
         var bullet = Instantiate(bulletPrefab, turret.position + turret.up * 0.9f, Quaternion.identity) as GameObject;
 
@@ -70,8 +78,13 @@ public class PlayerMovement : NetworkBehaviour {
         bullet.GetComponent<Rigidbody2D>().velocity = turret.up * shotSpeed;
 
         NetworkServer.Spawn(bullet);
-        Destroy(bullet, 2.0f);
-        isFiring = false;
+        Invoke("DestroyBullet", 2.0f);
+        //isFiring = false;
+    }
+
+    void DestroyBullet()
+    {
+        numBullets--;
     }
 
     void Move()

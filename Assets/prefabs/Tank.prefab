@@ -217,8 +217,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   turnSpeed: 3.5
-  shotSpeed: 10
-  maxBullets: 3
+  shotSpeed: 5.5
+  maxBullets: 5
   bulletPrefab: {fileID: 136752, guid: ec9ff227a16aa3a44995d162dbdca520, type: 2}
 --- !u!212 &21266198
 SpriteRenderer:
@@ -386,6 +386,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: shotSpeed
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxBullets
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
