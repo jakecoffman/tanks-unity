@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class Bullet : MonoBehaviour {
+public class Bullet : NetworkBehaviour {
+
+    [HideInInspector]
+    public PlayerMovement player;
 
     void Start()
     {
@@ -19,11 +23,21 @@ public class Bullet : MonoBehaviour {
         var hit = collider.gameObject;
         if (hit.tag == "Player")
         {
-            //Destroy(gameObject);
+            var combat = hit.GetComponent<Combat>();
+            combat.TakeDamage(10);
+            Destroy(gameObject);
+            if (isServer)
+            {
+                player.numBullets--;
+            }
         }
         else if (hit.tag == "Wall")
         {
             Destroy(gameObject);
+            if (isServer)
+            {
+                player.numBullets--;
+            }
         }
     }
 }

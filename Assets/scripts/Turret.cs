@@ -4,12 +4,17 @@ using System.Collections;
 
 public class Turret : MonoBehaviour {
 
-    // set by parent script
-    [HideInInspector]
-    public bool isLocalPlayer;
+    public PlayerMovement player;
+    public Combat combat;
+
+    void Awake()
+    {
+        player = GetComponentInParent<PlayerMovement>();
+        combat = GetComponentInParent<Combat>();
+    }
 
 	void Update () {
-	    if (!isLocalPlayer)
+        if (!player.isLocalPlayer || combat.isDead)
         {
             return;
         }

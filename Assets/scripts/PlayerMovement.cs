@@ -10,14 +10,21 @@ public class PlayerMovement : NetworkBehaviour {
     public int maxBullets = 5;
     public GameObject bulletPrefab;
 
-    private int numBullets = 0;
+    // TODO: Bullet manager
+    [HideInInspector]
+    [SyncVar]
+    public int numBullets = 0;
+
     private bool isFiring = false;
     private float rotation = 0f;
     private Transform turret;
 
+    // Components
+    private Combat combat;
+
     public override void OnStartLocalPlayer()
     {
-        turret.gameObject.GetComponent<Turret>().isLocalPlayer = isLocalPlayer;
+        turret.gameObject.GetComponent<Turret>().player = GetComponent<PlayerMovement>();
         foreach (SpriteRenderer r in GetComponentsInChildren<SpriteRenderer>())
         {
             r.material.color = Color.red;
@@ -31,13 +38,14 @@ public class PlayerMovement : NetworkBehaviour {
 
     void Awake()
     {
+        combat = GetComponent<Combat>();
         turret = transform.GetChild(1);
     }
 
     // called each frame
     void Update()
     {
-        if (!isLocalPlayer)
+        if (!isLocalPlayer || combat.isDead)
         {
             return;
         }
@@ -56,35 +64,22 @@ public class PlayerMovement : NetworkBehaviour {
         }
         isFiring = true;
         numBullets++;
-        CmdFire();
+        CmdFire(gameObject);
         yield return new WaitForSeconds(0.1f);
         isFiring = false;
     }
 
     [Command]
-    void CmdFire()
+    void CmdFire(GameObject player)
     {
-        //if (isFiring || numBullets == 3)
-        //{
-        //    return;
-        //}
-        //isFiring = true;
-        //numBullets++;
-        // place bullet
         var bullet = Instantiate(bulletPrefab, turret.position + turret.up * 0.9f, Quaternion.identity) as GameObject;
 
         // set direction of bullet and rotation
         bullet.transform.rotation = turret.rotation;
         bullet.GetComponent<Rigidbody2D>().velocity = turret.up * shotSpeed;
+        bullet.GetComponent<Bullet>().player = player.GetComponent<PlayerMovement>();
 
         NetworkServer.Spawn(bullet);
-        Invoke("DestroyBullet", 2.0f);
-        //isFiring = false;
-    }
-
-    void DestroyBullet()
-    {
-        numBullets--;
     }
 
     void Move()
@@ -114,8 +109,6 @@ public class PlayerMovement : NetworkBehaviour {
         }
         transform.Rotate(new Vector3(0, 0, rotation));
         
-        //GetComponent<Rigidbody2D>().angularVelocity = 0;
-        //float forwardInput = Input.GetAxis("Vertical");
         GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * move);
     }
 }

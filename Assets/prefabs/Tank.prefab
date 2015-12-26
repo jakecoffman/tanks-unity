@@ -47,6 +47,8 @@ GameObject:
   - 114: {fileID: 11458580}
   - 114: {fileID: 11462062}
   - 114: {fileID: 11472600}
+  - 114: {fileID: 11457306}
+  - 114: {fileID: 11458270}
   m_Layer: 9
   m_Name: Tank
   m_TagString: Player
@@ -121,6 +123,29 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: .709999979, y: 1}
+--- !u!114 &11457306
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b45d8416ffcfd144af478ab170b528b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+--- !u!114 &11458270
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eee49dd2586b3c4abc99beea37ce029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11458580
 MonoBehaviour:
   m_ObjectHideFlags: 1
