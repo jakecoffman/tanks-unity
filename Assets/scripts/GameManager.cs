@@ -23,6 +23,10 @@ public class GameManager : NetworkBehaviour {
     }
 
 	public override void OnStartServer() {
+        if (!isServer)
+        {
+            return;
+        }
         boardScript = GetComponent<BoardManager>();
         boardScript.SetupScene(level);
     }
