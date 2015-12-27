@@ -85,112 +85,18 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1360295683
+--- !u!1 &749727840
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 1360295686}
-  - 114: {fileID: 1360295685}
-  - 114: {fileID: 1360295684}
-  - 114: {fileID: 1360295687}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1360295684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1360295683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a884d8eaf497d54fa9d57973efe7420, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boardScript: {fileID: 0}
---- !u!114 &1360295685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1360295683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0711251a5735ae24cac5c86253e9c76b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  columns: 16
-  rows: 8
-  wallCount:
-    minimum: 5
-    maximum: 9
-  floorTiles:
-  - {fileID: 166858, guid: a482c9fc88ed4d64eb55249619226e99, type: 2}
-  wallTiles:
-  - {fileID: 118732, guid: d679789c22fda88418b3800281f31711, type: 2}
---- !u!4 &1360295686
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1360295683}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.379139841, y: .152433515, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
---- !u!114 &1360295687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1360295683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 1
-  m_LocalPlayerAuthority: 0
---- !u!1 &1546366835
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1546366840}
-  - 20: {fileID: 1546366839}
-  - 92: {fileID: 1546366838}
-  - 124: {fileID: 1546366837}
-  - 81: {fileID: 1546366836}
+  - 4: {fileID: 749727845}
+  - 20: {fileID: 749727844}
+  - 92: {fileID: 749727843}
+  - 124: {fileID: 749727842}
+  - 81: {fileID: 749727841}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -198,33 +104,33 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1546366836
+--- !u!81 &749727841
 AudioListener:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1546366835}
+  m_GameObject: {fileID: 749727840}
   m_Enabled: 1
---- !u!124 &1546366837
+--- !u!124 &749727842
 Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1546366835}
+  m_GameObject: {fileID: 749727840}
   m_Enabled: 1
---- !u!92 &1546366838
+--- !u!92 &749727843
 Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1546366835}
+  m_GameObject: {fileID: 749727840}
   m_Enabled: 1
---- !u!20 &1546366839
+--- !u!20 &749727844
 Camera:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1546366835}
+  m_GameObject: {fileID: 749727840}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -253,59 +159,59 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
   m_StereoMirrorMode: 0
---- !u!4 &1546366840
+--- !u!4 &749727845
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1546366835}
+  m_GameObject: {fileID: 749727840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: 3.5, z: -20}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1 &2070111369
+--- !u!1 &955736009
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 2070111372}
-  - 114: {fileID: 2070111371}
-  - 114: {fileID: 2070111370}
+  - 4: {fileID: 955736012}
+  - 114: {fileID: 955736011}
+  - 114: {fileID: 955736010}
   m_Layer: 0
-  m_Name: MyNetworkManager
+  m_Name: LobbyManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2070111370
+--- !u!114 &955736010
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2070111369}
+  m_GameObject: {fileID: 955736009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddb4775bf62c4854c9f4df7b83b30f0d, type: 3}
+  m_Script: {fileID: 227461547, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 2070111371}
+  manager: {fileID: 0}
   showGUI: 1
   offsetX: 0
   offsetY: 0
---- !u!114 &2070111371
+--- !u!114 &955736011
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2070111369}
+  m_GameObject: {fileID: 955736009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4a06b0d5e04b0042b15043074bdffc9, type: 3}
+  m_Script: {fileID: -859942077, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_NetworkPort: 7777
@@ -321,12 +227,12 @@ MonoBehaviour:
   m_PlayerPrefab: {fileID: 177562, guid: b6229eb4c2ff5c24487057b95017a5f1, type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
-  m_OfflineScene: 
+  m_OfflineScene: lobby
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 136752, guid: ec9ff227a16aa3a44995d162dbdca520, type: 2}
-  - {fileID: 118732, guid: d679789c22fda88418b3800281f31711, type: 2}
   - {fileID: 166858, guid: a482c9fc88ed4d64eb55249619226e99, type: 2}
+  - {fileID: 118732, guid: d679789c22fda88418b3800281f31711, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -348,7 +254,7 @@ MonoBehaviour:
     m_MaxSentMessageQueueSize: 128
     m_IsAcksLong: 0
     m_Channels: []
-  m_Channels: 0500000000000000
+  m_Channels: 
   m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
@@ -359,15 +265,25 @@ MonoBehaviour:
   matchMaker: {fileID: 0}
   matchName: default
   matchSize: 4
---- !u!4 &2070111372
+  m_ShowLobbyGUI: 1
+  m_MaxPlayers: 4
+  m_MaxPlayersPerConnection: 1
+  m_MinPlayers: 0
+  m_LobbyPlayerPrefab: {fileID: 11443032, guid: 26aed718a87961442b4416c6bcd8fe3a,
+    type: 2}
+  m_GamePlayerPrefab: {fileID: 177562, guid: b6229eb4c2ff5c24487057b95017a5f1, type: 2}
+  m_LobbyScene: lobby
+  m_PlayScene: game
+  lobbySlots: []
+--- !u!4 &955736012
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2070111369}
+  m_GameObject: {fileID: 955736009}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -.379139841, y: .152433515, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
