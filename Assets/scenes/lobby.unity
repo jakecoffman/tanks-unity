@@ -179,8 +179,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 955736012}
-  - 114: {fileID: 955736011}
   - 114: {fileID: 955736010}
+  - 114: {fileID: 955736011}
   m_Layer: 0
   m_Name: LobbyManager
   m_TagString: Untagged
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 955736009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -859942077, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Script: {fileID: 11500000, guid: e381462bad1f3184d8e7fe3767c344c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_NetworkPort: 7777
@@ -269,7 +269,7 @@ MonoBehaviour:
   m_ShowLobbyGUI: 1
   m_MaxPlayers: 4
   m_MaxPlayersPerConnection: 1
-  m_MinPlayers: 2
+  m_MinPlayers: 0
   m_LobbyPlayerPrefab: {fileID: 11443032, guid: 26aed718a87961442b4416c6bcd8fe3a,
     type: 2}
   m_GamePlayerPrefab: {fileID: 177562, guid: b6229eb4c2ff5c24487057b95017a5f1, type: 2}
