@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 404158}
   - 212: {fileID: 21265118}
   - 114: {fileID: 11444828}
+  - 114: {fileID: 11460254}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -61,6 +62,17 @@ MonoBehaviour:
     i15: 153
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &11460254
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1050975500, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21265118
 SpriteRenderer:
   m_ObjectHideFlags: 1

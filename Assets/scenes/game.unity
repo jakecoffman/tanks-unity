@@ -94,7 +94,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1360295686}
   - 114: {fileID: 1360295685}
-  - 114: {fileID: 1360295684}
   - 114: {fileID: 1360295687}
   m_Layer: 0
   m_Name: GameManager
@@ -103,18 +102,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1360295684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1360295683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a884d8eaf497d54fa9d57973efe7420, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boardScript: {fileID: 0}
 --- !u!114 &1360295685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +122,7 @@ MonoBehaviour:
   - {fileID: 166858, guid: a482c9fc88ed4d64eb55249619226e99, type: 2}
   wallTiles:
   - {fileID: 118732, guid: d679789c22fda88418b3800281f31711, type: 2}
+  networkStartPosition: {fileID: 129130, guid: ee93481d66256e9439ed3f80ec2a82b2, type: 2}
 --- !u!4 &1360295686
 Transform:
   m_ObjectHideFlags: 0
@@ -239,7 +227,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
