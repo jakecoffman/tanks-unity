@@ -276,6 +276,8 @@ MonoBehaviour:
   m_LobbyScene: lobby
   m_PlayScene: game
   lobbySlots: []
+  rows: 16
+  columns: 16
 --- !u!4 &955736012
 Transform:
   m_ObjectHideFlags: 0
