@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 482360}
   - 212: {fileID: 21203690}
   - 61: {fileID: 6158232}
-  - 114: {fileID: 11432488}
   m_Layer: 8
   m_Name: Wall
   m_TagString: Wall
@@ -43,38 +42,6 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: .899999976, y: .899999976}
---- !u!114 &11432488
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 118732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 214
-    i1: 121
-    i2: 120
-    i3: 156
-    i4: 34
-    i5: 253
-    i6: 168
-    i7: 132
-    i8: 24
-    i9: 179
-    i10: 128
-    i11: 2
-    i12: 129
-    i13: 243
-    i14: 23
-    i15: 17
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!212 &21203690
 SpriteRenderer:
   m_ObjectHideFlags: 1
