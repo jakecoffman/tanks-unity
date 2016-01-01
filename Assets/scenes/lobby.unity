@@ -217,7 +217,7 @@ MonoBehaviour:
   m_NetworkPort: 7777
   m_ServerBindToIP: 0
   m_ServerBindAddress: 0.0.0.0
-  m_NetworkAddress: 192.168.1.3
+  m_NetworkAddress: localhost
   m_DontDestroyOnLoad: 1
   m_RunInBackground: 1
   m_ScriptCRCCheck: 1
@@ -226,14 +226,13 @@ MonoBehaviour:
   m_LogLevel: 2
   m_PlayerPrefab: {fileID: 177562, guid: b6229eb4c2ff5c24487057b95017a5f1, type: 2}
   m_AutoCreatePlayer: 1
-  m_PlayerSpawnMethod: 0
+  m_PlayerSpawnMethod: 1
   m_OfflineScene: lobby
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 136752, guid: ec9ff227a16aa3a44995d162dbdca520, type: 2}
   - {fileID: 166858, guid: a482c9fc88ed4d64eb55249619226e99, type: 2}
   - {fileID: 118732, guid: d679789c22fda88418b3800281f31711, type: 2}
-  - {fileID: 129130, guid: ee93481d66256e9439ed3f80ec2a82b2, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -270,14 +269,12 @@ MonoBehaviour:
   m_MaxPlayers: 4
   m_MaxPlayersPerConnection: 1
   m_MinPlayers: 1
-  m_LobbyPlayerPrefab: {fileID: 11443032, guid: 26aed718a87961442b4416c6bcd8fe3a,
+  m_LobbyPlayerPrefab: {fileID: 11413814, guid: 26aed718a87961442b4416c6bcd8fe3a,
     type: 2}
   m_GamePlayerPrefab: {fileID: 177562, guid: b6229eb4c2ff5c24487057b95017a5f1, type: 2}
   m_LobbyScene: lobby
   m_PlayScene: game
   lobbySlots: []
-  rows: 16
-  columns: 16
 --- !u!4 &955736012
 Transform:
   m_ObjectHideFlags: 0
