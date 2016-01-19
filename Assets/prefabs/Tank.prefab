@@ -104,11 +104,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfbe00db71278924fbcdfb27c582a618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerName: 
+  color: {r: 0, g: 0, b: 0, a: 0}
   speed: 20
-  turnSpeed: 3.5
-  maxBullets: 5
-  turret: {fileID: 193874}
-  numBullets: 0
+  turnSpeed: 4
+  timeBetweenShots: .200000003
 --- !u!114 &11423536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -194,6 +194,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 136752, guid: ec9ff227a16aa3a44995d162dbdca520, type: 2}
   health: 1
   isDead: 0
+  numBullets: 0
+  maxBullets: 5
 --- !u!212 &21246576
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -304,6 +306,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_SyncSpin
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_AngularDrag
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: turnSpeed
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
