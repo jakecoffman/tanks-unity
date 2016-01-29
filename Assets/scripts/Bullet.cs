@@ -27,12 +27,12 @@ public class Bullet : NetworkBehaviour {
 		
 	void SpendBullet() {
 		player.numBullets--;
-		Destroy(gameObject);
+		NetworkServer.Destroy(gameObject);
 	}
-		
+
+	[ServerCallback]
     void OnTriggerEnter2D(Collider2D collider)
     {
-        
         var hit = collider.gameObject;
         if (hit.tag == "Player")
         {

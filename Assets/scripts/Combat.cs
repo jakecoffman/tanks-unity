@@ -38,12 +38,13 @@ public class Combat : NetworkBehaviour {
         }
     }
 
-	void Fire(GameObject player, Vector3 position, Vector3 turretRotation) {
+	GameObject Fire(GameObject player, Vector3 position, Vector3 turretRotation) {
 		var bullet = Instantiate(bulletPrefab, position, Quaternion.Euler(turretRotation)) as GameObject;
 
 		// set direction of bullet and rotation
 		bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * shotSpeed;
 		bullet.GetComponent<Bullet>().player = this;
+		return bullet;
 	}
 
     [Command]
@@ -54,8 +55,9 @@ public class Combat : NetworkBehaviour {
             return;
         }
         numBullets++;
-		Fire (player, position, turretRotation);
-		RpcFire (player, position, turretRotation);
+		var bullet = Fire (player, position, turretRotation);
+		NetworkServer.Spawn (bullet);
+		//RpcFire (player, position, turretRotation);
     }
 
 	[ClientRpc]
