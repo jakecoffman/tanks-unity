@@ -84,6 +84,10 @@ public class NetworkTank : NetworkBehaviour {
 
     void Move()
     {
+		if (isFiring) {
+			return;
+		}
+
         float move = 0;
         if(Input.GetKey(KeyCode.W))
         {

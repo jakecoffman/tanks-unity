@@ -17,6 +17,7 @@ public class Bullet : NetworkBehaviour {
     {
 		rigid2d = GetComponent<Rigidbody2D>();
 		Predestine ();
+		Destroy (gameObject, 10.0f);
     }
 
 	// the physics is unreliable so occationally (like at start or after bounce) we recalculate the wall we expect to 

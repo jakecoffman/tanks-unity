@@ -34,7 +34,7 @@ public class Combat : NetworkBehaviour {
     {
         foreach (SpriteRenderer r in GetComponentsInChildren<SpriteRenderer>())
         {
-            r.material.color = Color.black;
+            r.material.color = Color.gray;
         }
     }
 
@@ -58,13 +58,5 @@ public class Combat : NetworkBehaviour {
         numBullets++;
 		var bullet = Fire (player, position, turretRotation);
 		NetworkServer.Spawn (bullet);
-		//RpcFire (player, position, turretRotation);
     }
-
-	[ClientRpc]
-	public void RpcFire(GameObject player, Vector3 position, Vector3 turretRotation) {
-		if (!isServer) {
-			Fire (player, position, turretRotation);
-		}
-	}
 }
