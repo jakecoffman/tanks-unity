@@ -19,10 +19,6 @@ public class NetworkTank : NetworkBehaviour {
 
     public override void OnStartLocalPlayer()
     {
-        foreach (SpriteRenderer r in GetComponentsInChildren<SpriteRenderer>())
-        {
-            r.material.color = Color.red;
-        }
         _rigid = GetComponent<Rigidbody2D>();
     }
 
@@ -31,6 +27,13 @@ public class NetworkTank : NetworkBehaviour {
         turret = transform.GetChild(0).gameObject;
         combat = GetComponent<Combat>();
     }
+
+	void Start() {
+		foreach (SpriteRenderer r in GetComponentsInChildren<SpriteRenderer>())
+		{
+			r.material.color = color;
+		}
+	}
 
     // called each frame
     void FixedUpdate()

@@ -44,6 +44,7 @@ public class Combat : NetworkBehaviour {
 		// set direction of bullet and rotation
 		bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * shotSpeed;
 		bullet.GetComponent<Bullet>().player = this;
+		bullet.GetComponent<Renderer> ().material.color = player.GetComponent<NetworkTank>().color;
 		return bullet;
 	}
 
