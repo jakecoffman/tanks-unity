@@ -10,7 +10,7 @@ public class NetworkLobbyHook : LobbyHook
         LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer>();
 		NetworkTank tank = gamePlayer.GetComponent<NetworkTank>();
 
-        tank.playerName = lobby.name;
+        tank.playerName = lobby.playerName;
         tank.color = lobby.playerColor;
     }
 }

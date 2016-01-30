@@ -3,14 +3,18 @@ using UnityEngine.Networking;
 using System.Collections;
 
 public class NetworkTank : NetworkBehaviour {
-    public string playerName;
+    [SyncVar]
+	public string playerName;
+	[SyncVar]
     public Color color;
     public float speed = 20f;
     public float turnSpeed = 3.5f;
+	public GameObject nameTagPrefab;
 
 	// TODO enforce server side
 	public float timeBetweenShots = 0.2f;
     GameObject turret;
+	GameObject nameTag;
 
     private bool isFiring = false;
 
@@ -33,11 +37,40 @@ public class NetworkTank : NetworkBehaviour {
 		{
 			r.material.color = color;
 		}
+		nameTag = Instantiate (nameTagPrefab, transform.position, Quaternion.identity) as GameObject;
+		if (isLocalPlayer) {
+			nameTag.GetComponentInChildren<TextMesh> ().text = "You";
+		} else {
+			nameTag.GetComponentInChildren<TextMesh> ().text = playerName;
+		}
+		nameTag.GetComponentInChildren<MeshRenderer> ().enabled = true;
+		nameTag.GetComponentInChildren<Renderer> ().sortingLayerName = "Player";
+		StartCoroutine ("FadeOut");
+	}
+
+	IEnumerator FadeOut() {
+		var renderer = nameTag.GetComponentInChildren<Renderer> ();
+		var opacity = 1f;
+		while (opacity > 0) {
+			yield return new WaitForSeconds (0.1f);
+			opacity -= 0.05f;
+			var c = renderer.material.color;
+			c.a = opacity;
+			renderer.material.color = c;
+		}
+		Destroy (nameTag);
+	}
+
+	void FollowText() {
+		nameTag.transform.position = transform.position;
 	}
 
     // called each frame
     void FixedUpdate()
     {
+		if (nameTag != null) {
+			FollowText ();
+		}
         if (!isLocalPlayer || combat.isDead)
         {
             return;
