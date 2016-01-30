@@ -37,8 +37,7 @@ public class Bullet : NetworkBehaviour {
         var hit = collider.gameObject;
         if (hit.tag == "Player")
         {
-            // TODO: for bouncy bullets, allow players to hit themselves
-            if (hit == player.gameObject)
+            if (hit == player.gameObject && bounce == 0)
             {
                 return;
             }

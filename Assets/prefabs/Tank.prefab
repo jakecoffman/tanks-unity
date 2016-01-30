@@ -111,6 +111,7 @@ MonoBehaviour:
   speed: 20
   turnSpeed: 4
   nameTagPrefab: {fileID: 129010, guid: e163cd025cbe445f08a340f2bc72d213, type: 2}
+  smokePrefab: {fileID: 158428, guid: 1a8d6d0651787440aadfce78a56aa4df, type: 2}
   timeBetweenShots: 0.2
 --- !u!114 &11430316
 MonoBehaviour:
@@ -278,6 +279,42 @@ Prefab:
       propertyPath: nameTagPrefab
       value: 
       objectReference: {fileID: 129010, guid: e163cd025cbe445f08a340f2bc72d213, type: 2}
+    - target: {fileID: 0}
+      propertyPath: lengthInSec
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 2.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: InitialModule.startColor.maxColor.rgba
+      value: 4281940286
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ShapeModule.radius
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SortingLayerID
+      value: 1091555541
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: smokePrefab
+      value: 
+      objectReference: {fileID: 158428, guid: 1a8d6d0651787440aadfce78a56aa4df, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 123018}

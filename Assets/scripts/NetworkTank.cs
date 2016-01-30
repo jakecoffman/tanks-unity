@@ -10,6 +10,7 @@ public class NetworkTank : NetworkBehaviour {
     public float speed = 20f;
     public float turnSpeed = 3.5f;
 	public GameObject nameTagPrefab;
+	public GameObject smokePrefab;
 
 	// TODO enforce server side
 	public float timeBetweenShots = 0.2f;

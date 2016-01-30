@@ -12,6 +12,8 @@ public class Combat : NetworkBehaviour {
     [SyncVar]
     public bool isDead = false;
 
+	GameObject smoke;
+
     [HideInInspector]
     [SyncVar]
     public int numBullets = 0;
@@ -36,7 +38,14 @@ public class Combat : NetworkBehaviour {
         {
             r.material.color = Color.gray;
         }
+		smoke = Instantiate (GetComponent<NetworkTank> ().smokePrefab, transform.position, Quaternion.identity) as GameObject;
     }
+
+	void FixedUpdate() {
+		if (smoke != null) {
+			smoke.transform.position = transform.position;
+		}
+	}
 
 	GameObject Fire(GameObject player, Vector3 position, Vector3 turretRotation) {
 		var bullet = Instantiate(bulletPrefab, position, Quaternion.Euler(turretRotation)) as GameObject;
