@@ -23,7 +23,7 @@ public class Combat : NetworkBehaviour {
     public void TakeDamage(int amount)
     {
         health -= amount;
-        if (health <= 0)
+        if (health <= 0 && !isDead)
         {
             health = 0;
             isDead = true;
