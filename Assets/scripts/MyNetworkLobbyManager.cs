@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.Network;
 
 public class MyNetworkLobbyManager : NetworkManager
 {
