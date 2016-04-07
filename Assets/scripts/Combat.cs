@@ -19,6 +19,9 @@ public class Combat : NetworkBehaviour {
     public int numBullets = 0;
     public int maxBullets = 5;
 
+    public delegate void TankDied(GameObject tank);
+    public static event TankDied OnTankDied;
+
     [Server]
     public void TakeDamage(int amount)
     {
@@ -28,6 +31,7 @@ public class Combat : NetworkBehaviour {
             health = 0;
             isDead = true;
             RpcDie();
+            OnTankDied(gameObject);
         }
     }
 
