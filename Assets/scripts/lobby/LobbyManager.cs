@@ -4,9 +4,8 @@ using UnityEngine.Networking;
 using UnityEngine.Networking.Types;
 using UnityEngine.Networking.Match;
 using System.Collections;
-using UnityStandardAssets.Network;
 
-public class LobbyManager : MyNetworkLobbyManager 
+public class LobbyManager : NetworkLobbyManager 
 {
     static short MsgKicked = MsgType.Highest + 1;
 
@@ -44,7 +43,7 @@ public class LobbyManager : MyNetworkLobbyManager
     public bool _isMatchmaking = false;
 
     protected bool _disconnectServer = false;
-
+    
     protected ulong _currentMatchID;
 
     protected LobbyHook _lobbyHooks;
@@ -52,7 +51,7 @@ public class LobbyManager : MyNetworkLobbyManager
     void Start()
     {
         s_Singleton = this;
-        _lobbyHooks = GetComponent<UnityStandardAssets.Network.LobbyHook>();
+        _lobbyHooks = GetComponent<LobbyHook>();
         currentPanel = mainMenuPanel;
 
         backButton.gameObject.SetActive(false);
@@ -175,7 +174,7 @@ public class LobbyManager : MyNetworkLobbyManager
     {
         ChangeTo(mainMenuPanel);
     }
-
+             
     public void StopHostClbk()
     {
         if (_isMatchmaking)
@@ -188,7 +187,7 @@ public class LobbyManager : MyNetworkLobbyManager
             StopHost();
         }
 
-
+        
         ChangeTo(mainMenuPanel);
     }
 

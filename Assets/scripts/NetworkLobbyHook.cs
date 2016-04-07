@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityStandardAssets.Network;
 using System.Collections;
 using UnityEngine.Networking;
 
