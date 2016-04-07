@@ -5,7 +5,7 @@ using UnityEngine.Networking.Types;
 using UnityEngine.Networking.Match;
 using System.Collections;
 
-public class LobbyManager : NetworkLobbyManager 
+public class LobbyManager : MyNetworkLobbyManager 
 {
     static short MsgKicked = MsgType.Highest + 1;
 

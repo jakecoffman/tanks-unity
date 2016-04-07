@@ -175,6 +175,7 @@ public class MyNetworkLobbyManager : NetworkManager
             return;
         }
 
+        int totalPlayers = NetworkServer.connections.Count();
         int readyCount = 0;
 
         foreach (var conn in NetworkServer.connections)
@@ -184,7 +185,7 @@ public class MyNetworkLobbyManager : NetworkManager
 
             readyCount += CheckConnectionIsReadyToBegin(conn);
         }
-        if (m_MinPlayers > 0 && readyCount < m_MinPlayers)
+        if (readyCount < m_MinPlayers || readyCount < totalPlayers)
         {
             // not enough players ready yet.
             return;
