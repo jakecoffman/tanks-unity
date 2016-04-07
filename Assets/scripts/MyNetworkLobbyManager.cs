@@ -366,9 +366,8 @@ public class MyNetworkLobbyManager : NetworkManager
 
                 // find the game-player object for this connection, and destroy it
                 var uv = lobbyPlayer.GetComponent<NetworkIdentity>();
-                // TODO: This doesn't seem to work, I changed it from what it used to be
-                // because I didn't have access to it. Getting strange LobbyPlayer deleted messages.
-                //NetworkServer.DestroyPlayersForConnection(lobbyPlayer.connectionToClient);
+
+                NetworkServer.Destroy(uv.connectionToClient.playerControllers[0].gameObject);
 
                 if (NetworkServer.active)
                 {
