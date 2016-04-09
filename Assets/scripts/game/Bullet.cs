@@ -15,14 +15,21 @@ public class Bullet : NetworkBehaviour {
 
     void Start()
     {
-		rigid2d = GetComponent<Rigidbody2D>();
-		Predestine ();
-		Destroy (gameObject, 10.0f);
+        RpcSetColor(player.GetComponent<Tank>().color);
+        rigid2d = GetComponent<Rigidbody2D>();
+        Predestine();
+        Destroy(gameObject, 10.0f);
+    }
+    
+    [ClientRpc]
+    void RpcSetColor(Color color)
+    {
+        GetComponent<Renderer>().material.color = color;
     }
 
-	// the physics is unreliable so occationally (like at start or after bounce) we recalculate the wall we expect to 
-	// hit so if we hit between walls we can ignore the wall that we shouldn't have hit!
-	void Predestine() {
+    // the physics is unreliable so occationally (like at start or after bounce) we recalculate the wall we expect to 
+    // hit so if we hit between walls we can ignore the wall that we shouldn't have hit!
+    void Predestine() {
 		rayHit = Physics2D.Raycast(transform.position, rigid2d.velocity, 100f, 1 << LayerMask.NameToLayer("BlockingLayer"));
 	}
 		
