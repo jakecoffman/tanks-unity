@@ -31,6 +31,7 @@ public class Tank : NetworkBehaviour {
     {
         turret = transform.GetChild(0).gameObject;
         combat = GetComponent<Combat>();
+        nameTag = Instantiate(nameTagPrefab, transform.position, Quaternion.identity) as GameObject;
     }
 
 	void Start() {
@@ -38,16 +39,27 @@ public class Tank : NetworkBehaviour {
 		{
 			r.material.color = color;
 		}
-		nameTag = Instantiate (nameTagPrefab, transform.position, Quaternion.identity) as GameObject;
-		if (isLocalPlayer) {
-			nameTag.GetComponentInChildren<TextMesh> ().text = "You";
-		} else {
-			nameTag.GetComponentInChildren<TextMesh> ().text = playerName;
-		}
-		nameTag.GetComponentInChildren<MeshRenderer> ().enabled = true;
-		nameTag.GetComponentInChildren<Renderer> ().sortingLayerName = "Player";
-		StartCoroutine ("FadeOut");
-	}
+        if (isLocalPlayer)
+        {
+            nameTag.GetComponentInChildren<TextMesh>().text = "You";
+        }
+        else
+        {
+            nameTag.GetComponentInChildren<TextMesh>().text = playerName;
+        }
+        nameTag.GetComponentInChildren<MeshRenderer>().enabled = true;
+        nameTag.GetComponentInChildren<Renderer>().sortingLayerName = "Player";
+        ShowNameTags();
+        StartCoroutine("FadeOut");
+    }
+
+    void ShowNameTags()
+    {
+        var renderer = nameTag.GetComponentInChildren<Renderer>();
+        var c = renderer.material.color;
+        c.a = 1f;
+        renderer.material.color = c;
+    }
 
 	IEnumerator FadeOut() {
 		var renderer = nameTag.GetComponentInChildren<Renderer> ();
@@ -59,19 +71,32 @@ public class Tank : NetworkBehaviour {
 			c.a = opacity;
 			renderer.material.color = c;
 		}
-		Destroy (nameTag);
 	}
 
 	void FollowText() {
 		nameTag.transform.position = transform.position;
 	}
 
-    // called each frame
+    void OnGUI()
+    {
+        FollowText();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            StopCoroutine("FadeOut");
+            ShowNameTags();
+        }
+        else if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            StartCoroutine("FadeOut");
+        }
+    }
+
     void FixedUpdate()
     {
-		if (nameTag != null) {
-			FollowText ();
-		}
         if (!isLocalPlayer || combat.isDead)
         {
             return;
