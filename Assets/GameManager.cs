@@ -34,7 +34,7 @@ public class GameManager : NetworkBehaviour {
     // Server side only
     void RemoveTank(GameObject tank)
     {
-        Debug.Log(tank.GetComponent<NetworkTank>().playerName + " died");
+        Debug.Log(tank.GetComponent<Tank>().playerName + " died");
         var aliveList = new List<GameObject>(alivePlayers);
         aliveList.Remove(tank);
         alivePlayers = aliveList.ToArray();

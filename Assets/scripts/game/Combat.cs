@@ -42,7 +42,7 @@ public class Combat : NetworkBehaviour {
         {
             r.material.color = Color.gray;
         }
-		smoke = Instantiate (GetComponent<NetworkTank> ().smokePrefab, transform.position, Quaternion.identity) as GameObject;
+		smoke = Instantiate (GetComponent<Tank> ().smokePrefab, transform.position, Quaternion.identity) as GameObject;
     }
 
 	void FixedUpdate() {
@@ -57,7 +57,7 @@ public class Combat : NetworkBehaviour {
 		// set direction of bullet and rotation
 		bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * shotSpeed;
 		bullet.GetComponent<Bullet>().player = this;
-		bullet.GetComponent<Renderer> ().material.color = player.GetComponent<NetworkTank>().color;
+		bullet.GetComponent<Renderer> ().material.color = player.GetComponent<Tank>().color;
 		return bullet;
 	}
 

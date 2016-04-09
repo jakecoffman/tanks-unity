@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 
-public class NetworkTank : NetworkBehaviour {
+public class Tank : NetworkBehaviour {
     [SyncVar]
 	public string playerName;
 	[SyncVar]

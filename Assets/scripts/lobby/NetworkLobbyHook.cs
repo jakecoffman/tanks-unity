@@ -7,7 +7,7 @@ public class NetworkLobbyHook : LobbyHook
     public override void OnLobbyServerSceneLoadedForPlayer(NetworkManager manager, GameObject lobbyPlayer, GameObject gamePlayer)
     {
         LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer>();
-		NetworkTank tank = gamePlayer.GetComponent<NetworkTank>();
+		Tank tank = gamePlayer.GetComponent<Tank>();
 
         tank.playerName = lobby.playerName;
         tank.color = lobby.playerColor;
