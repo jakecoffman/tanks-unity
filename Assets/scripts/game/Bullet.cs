@@ -15,9 +15,12 @@ public class Bullet : NetworkBehaviour {
 
     void Start()
     {
-        RpcSetColor(player.GetComponent<Tank>().color);
-        rigid2d = GetComponent<Rigidbody2D>();
-        Predestine();
+        if (isServer)
+        {
+            RpcSetColor(player.GetComponent<Tank>().color);
+            rigid2d = GetComponent<Rigidbody2D>();
+            Predestine();
+        }
         Destroy(gameObject, 10.0f);
     }
     
