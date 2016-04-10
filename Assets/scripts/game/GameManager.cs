@@ -14,37 +14,31 @@ public class GameManager : NetworkBehaviour {
     GameObject[] alivePlayers;
     bool playerDied;
     int secondsUntilBackToLobby = 5;
-
-    void Awake()
+    
+    void Start()
     {
         pText = playersText.GetComponent<Text>();
         cText = centerText.GetComponent<Text>();
-    }
-
-    public override void OnStartServer()
-    {
         alivePlayers = GameObject.FindGameObjectsWithTag("Player");
-        RpcAlivePlayers(alivePlayers);
     }
 
     void OnEnable()
     {
-        Combat.OnTankDied += RemoveTank;
+        Combat.EventTankDied += RemoveTank;
     }
 
     void OnDisable()
     {
-        Combat.OnTankDied -= RemoveTank;
+        Combat.EventTankDied -= RemoveTank;
     }
 
-    // Server side only
     void RemoveTank(GameObject tank)
     {
         Debug.Log(tank.GetComponent<Tank>().playerName + " died");
         var aliveList = new List<GameObject>(alivePlayers);
         aliveList.Remove(tank);
         alivePlayers = aliveList.ToArray();
-        RpcAlivePlayers(alivePlayers);
+        playerDied = true;
         if (alivePlayers.Length <= 1)
         {
             StartCoroutine(ReturnToLobby());
@@ -55,21 +49,7 @@ public class GameManager : NetworkBehaviour {
     {
         yield return new WaitForSeconds(secondsUntilBackToLobby);
         var lobby = NetworkManager.singleton as MyNetworkLobbyManager;
-        if (lobby)
-        {
-            lobby.ServerChangeScene(lobby.lobbyScene);
-        }
-        else
-        {
-            Debug.Log("Can't get lobby manager!!!!");
-        }
-    }
-
-    [ClientRpc]
-    void RpcAlivePlayers(GameObject[] alive)
-    {
-        alivePlayers = alive;
-        playerDied = true;
+        lobby.ServerChangeScene(lobby.lobbyScene);
     }
 
     void OnGUI()
