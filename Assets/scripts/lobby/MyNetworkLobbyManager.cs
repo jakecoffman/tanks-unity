@@ -175,14 +175,14 @@ public class MyNetworkLobbyManager : NetworkManager
             return;
         }
 
-        int totalPlayers = NetworkServer.connections.Count();
+        int totalPlayers = 0;
         int readyCount = 0;
 
         foreach (var conn in NetworkServer.connections)
         {
             if (conn == null)
                 continue;
-
+            totalPlayers += 1;
             readyCount += CheckConnectionIsReadyToBegin(conn);
         }
         if (readyCount < m_MinPlayers || readyCount < totalPlayers)
