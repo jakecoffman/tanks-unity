@@ -57,7 +57,13 @@ public class Bullet : NetworkBehaviour {
         }
         else if (hit.tag == "Wall")
         {
-			if (hit != rayHit.collider.gameObject) {
+            if (rayHit.collider == null)
+            {
+                // prevents firing through walls
+                SpendBullet();
+                return;
+            }
+            if (hit != rayHit.collider.gameObject) {
 				// prevents hitting between walls that are touching
 				return;
 			}
