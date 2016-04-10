@@ -24,12 +24,12 @@ public class GameManager : NetworkBehaviour {
 
     void OnEnable()
     {
-        Combat.EventTankDied += RemoveTank;
+        Combat.OnTankDied += RemoveTank;
     }
 
     void OnDisable()
     {
-        Combat.EventTankDied -= RemoveTank;
+        Combat.OnTankDied -= RemoveTank;
     }
 
     void RemoveTank(GameObject tank)

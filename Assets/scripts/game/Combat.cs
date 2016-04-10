@@ -21,8 +21,7 @@ public class Combat : NetworkBehaviour {
 
     public delegate void TankDied(GameObject tank);
 
-    [SyncEvent]
-    public static event TankDied EventTankDied;
+    public static event TankDied OnTankDied;
 
     [Server]
     public void TakeDamage(int amount)
@@ -33,13 +32,17 @@ public class Combat : NetworkBehaviour {
             health = 0;
             isDead = true;
             RpcDie();
-            EventTankDied(gameObject);
+            OnTankDied(gameObject);
         }
     }
 
     [ClientRpc]
     void RpcDie()
     {
+        if (!isServer)
+        {
+            OnTankDied(gameObject);
+        }
         foreach (SpriteRenderer r in GetComponentsInChildren<SpriteRenderer>())
         {
             r.material.color = Color.gray;
