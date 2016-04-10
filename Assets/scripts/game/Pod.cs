@@ -12,13 +12,8 @@ public class Pod : NetworkBehaviour {
         health -= damage;
         if (health <= 0)
         {
-            RpcDie();
+            NetworkServer.Destroy(gameObject);
         }
     }
-
-    [ClientRpc]
-    void RpcDie()
-    {
-        Destroy(gameObject);
-    }
+   
 }
