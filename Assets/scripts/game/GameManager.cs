@@ -19,22 +19,15 @@ public class GameManager : NetworkBehaviour {
     {
         pText = playersText.GetComponent<Text>();
         cText = centerText.GetComponent<Text>();
-        alivePlayers = GameObject.FindGameObjectsWithTag("Player");
     }
 
-    void OnEnable()
-    {
-        Combat.OnTankDied += RemoveTank;
-    }
-
-    void OnDisable()
-    {
-        Combat.OnTankDied -= RemoveTank;
-    }
-
-    void RemoveTank(GameObject tank)
+    public void RemoveTank(GameObject tank)
     {
         Debug.Log(tank.GetComponent<Tank>().playerName + " died");
+        if (alivePlayers == null)
+        {
+            alivePlayers = GameObject.FindGameObjectsWithTag("Player");
+        }
         var aliveList = new List<GameObject>(alivePlayers);
         aliveList.Remove(tank);
         alivePlayers = aliveList.ToArray();

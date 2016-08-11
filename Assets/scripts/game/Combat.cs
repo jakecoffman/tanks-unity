@@ -19,10 +19,6 @@ public class Combat : NetworkBehaviour {
     public int numBullets = 0;
     public int maxBullets = 5;
 
-    public delegate void TankDied(GameObject tank);
-
-    public static event TankDied OnTankDied;
-
     [Server]
     public void TakeDamage(int amount)
     {
@@ -32,7 +28,8 @@ public class Combat : NetworkBehaviour {
             health = 0;
             isDead = true;
             RpcDie();
-            OnTankDied(gameObject);
+            GameObject gameManager = GameObject.FindGameObjectWithTag("GameController");
+            gameManager.GetComponent<GameManager>().RemoveTank(gameObject);
         }
     }
 
@@ -41,7 +38,8 @@ public class Combat : NetworkBehaviour {
     {
         if (!isServer)
         {
-            OnTankDied(gameObject);
+            GameObject gameManager = GameObject.FindGameObjectWithTag("GameController");
+            gameManager.GetComponent<GameManager>().RemoveTank(gameObject);
         }
         foreach (SpriteRenderer r in GetComponentsInChildren<SpriteRenderer>())
         {
