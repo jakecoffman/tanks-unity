@@ -47,7 +47,10 @@ public class GameManager : NetworkBehaviour {
 
     void OnGUI()
     {
-        pText.text = "Players left: " + alivePlayers.Length;
+        if (alivePlayers != null)
+        {
+            pText.text = "Players left: " + alivePlayers.Length;
+        }
         if (playerDied)
         {
             playerDied = false;

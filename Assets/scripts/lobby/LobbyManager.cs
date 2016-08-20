@@ -138,12 +138,14 @@ public class LobbyManager : MyNetworkLobbyManager
         }
     }
 
+    // the connecting modal
     public void DisplayIsConnecting()
     {
         var _this = this;
         infoPanel.Display("Connecting...", "Cancel", () => { _this.backDelegate(); });
     }
 
+    // the info at the top of the screen
     public void SetServerInfo(string status, string host)
     {
         statusInfo.text = status;
@@ -152,7 +154,10 @@ public class LobbyManager : MyNetworkLobbyManager
 
 
     public delegate void BackButtonDelegate();
+    // Loaded up with whatever contextual back would do
     public BackButtonDelegate backDelegate;
+    
+    // Called when the back button is hit
     public void GoBackButton()
     {
         backDelegate();
@@ -235,7 +240,7 @@ public class LobbyManager : MyNetworkLobbyManager
         SetServerInfo("Hosting", networkAddress);
     }
 
-    public override void OnMatchCreate(UnityEngine.Networking.Match.CreateMatchResponse matchInfo)
+    public override void OnMatchCreate(CreateMatchResponse matchInfo)
     {
         base.OnMatchCreate(matchInfo);
 
@@ -256,11 +261,12 @@ public class LobbyManager : MyNetworkLobbyManager
     {
         _playerNumber += count;
 
+        // could be used to check max players per connection, but not sure why I care
         int localPlayerCount = 0;
         foreach (PlayerController p in ClientScene.localPlayers)
             localPlayerCount += (p == null || p.playerControllerId == -1) ? 0 : 1;
 
-        addPlayerButton.SetActive(localPlayerCount < maxPlayersPerConnection && _playerNumber < maxPlayers);
+        addPlayerButton.SetActive(_playerNumber < maxPlayers);
     }
 
     // ----------------- Server callbacks ------------------

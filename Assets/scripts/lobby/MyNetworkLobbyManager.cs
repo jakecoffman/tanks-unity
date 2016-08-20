@@ -17,7 +17,7 @@ public class MyNetworkLobbyManager : NetworkManager
     // configuration
     [SerializeField] bool m_ShowLobbyGUI = true;
     [SerializeField] int m_MaxPlayers = 4;
-    [SerializeField] int m_MaxPlayersPerConnection = 1;
+    [SerializeField] uint m_MaxPlayersPerConnection = 1;
     [SerializeField] int m_MinPlayers;
     [SerializeField] MyNetworkLobbyPlayer m_LobbyPlayerPrefab;
     [SerializeField] GameObject m_GamePlayerPrefab;
@@ -35,8 +35,7 @@ public class MyNetworkLobbyManager : NetworkManager
 
     // properties
     public bool showLobbyGUI             { get { return m_ShowLobbyGUI; } set { m_ShowLobbyGUI = value; } }
-    public int maxPlayers                { get { return m_MaxPlayers; } set { m_MaxPlayers = value; } }
-    public int maxPlayersPerConnection   { get { return m_MaxPlayersPerConnection; } set { m_MaxPlayersPerConnection = value; } }
+    public uint maxPlayers = 4;
     public int minPlayers                { get { return m_MinPlayers; } set { m_MinPlayers = value; } }
     public MyNetworkLobbyPlayer lobbyPlayerPrefab { get { return m_LobbyPlayerPrefab; } set { m_LobbyPlayerPrefab = value; } }
     public GameObject gamePlayerPrefab   { get { return m_GamePlayerPrefab; } set { m_GamePlayerPrefab = value; } }
@@ -299,15 +298,6 @@ public class MyNetworkLobbyManager : NetworkManager
         {
             if (player.IsValid)
                 numPlayersForConnection += 1;
-        }
-
-        if (numPlayersForConnection >= maxPlayersPerConnection)
-        {
-            if (LogFilter.logWarn) { Debug.LogWarning("NetworkLobbyManager no more players for this connection."); }
-
-            var errorMsg = new EmptyMessage();
-            conn.Send(MsgType.LobbyAddPlayerFailed, errorMsg);
-            return;
         }
 
         byte slot = FindSlot();

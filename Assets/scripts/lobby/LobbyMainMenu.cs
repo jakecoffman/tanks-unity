@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-//Main menu, mainly only a bunch of callback called by the UI (setup throught the Inspector)
+//Main menu, mainly only a bunch of callback called by the UI (setup through the Inspector)
 public class LobbyMainMenu : MonoBehaviour 
 {
     public LobbyManager lobbyManager;
@@ -24,11 +24,13 @@ public class LobbyMainMenu : MonoBehaviour
         matchNameInput.onEndEdit.AddListener(onEndEditGameName);
     }
 
+    // PLAY AND HOST
     public void OnClickHost()
     {
         lobbyManager.StartHost();
     }
 
+    // LOCAL JOIN
     public void OnClickJoin()
     {
         lobbyManager.ChangeTo(lobbyPanel);
@@ -42,6 +44,7 @@ public class LobbyMainMenu : MonoBehaviour
         lobbyManager.SetServerInfo("Connecting...", lobbyManager.networkAddress);
     }
 
+    // DEDICATED SERVER (this should be removed, use batchmode)
     public void OnClickDedicated()
     {
         lobbyManager.ChangeTo(null);
@@ -52,15 +55,16 @@ public class LobbyMainMenu : MonoBehaviour
         lobbyManager.SetServerInfo("Dedicated Server", lobbyManager.networkAddress);
     }
 
+    // CREATE (online)
     public void OnClickCreateMatchmakingGame()
     {
         lobbyManager.StartMatchMaker();
         lobbyManager.matchMaker.CreateMatch(
             matchNameInput.text,
-            (uint)lobbyManager.maxPlayers,
-            true,
-            "",
-            lobbyManager.OnMatchCreate);
+            lobbyManager.maxPlayers,
+            true, // match advertise
+            "", // match password
+            lobbyManager.OnMatchCreate); // creation callback
 
         lobbyManager.backDelegate = lobbyManager.StopHost;
         lobbyManager._isMatchmaking = true;
@@ -69,6 +73,7 @@ public class LobbyMainMenu : MonoBehaviour
         lobbyManager.SetServerInfo("Matchmaker Host", lobbyManager.matchHost);
     }
 
+    // LIST SERVERS
     public void OnClickOpenServerList()
     {
         lobbyManager.StartMatchMaker();
