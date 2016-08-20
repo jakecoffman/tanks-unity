@@ -53,8 +53,6 @@ public class LobbyManager : NetworkManager
     // used to stop matchmaking by telling which match to stop hosting
     protected ulong _currentMatchID;
 
-    protected LobbyHook _lobbyHooks;
-
     // **** these were variables from the old MyNetworkLobbyManager
 
     struct PendingPlayer
@@ -102,7 +100,6 @@ public class LobbyManager : NetworkManager
     void Start()
     {
         s_Singleton = this;
-        _lobbyHooks = GetComponent<LobbyHook>();
         currentPanel = mainMenuPanel;
 
         backButton.gameObject.SetActive(false);
@@ -377,12 +374,12 @@ public class LobbyManager : NetworkManager
 
     public bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer)
     {
-        //This hook allows you to apply state data from the lobby-player to the game-player
-        //just subclass "LobbyHook" and add it to the lobby object.
+        LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer>();
+        Tank tank = gamePlayer.GetComponent<Tank>();
 
-        if (_lobbyHooks)
-            _lobbyHooks.OnLobbyServerSceneLoadedForPlayer(this, lobbyPlayer, gamePlayer);
-
+        tank.playerName = lobby.playerName;
+        tank.color = lobby.playerColor;
+        
         return true;
     }
 

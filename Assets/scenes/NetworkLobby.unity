@@ -408,6 +408,10 @@ Prefab:
       propertyPath: m_Text
       value: HOST A GAME
       objectReference: {fileID: 0}
+    - target: {fileID: 181906, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
+      propertyPath: m_Name
+      value: Title Tanks A Lot
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11415508, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
