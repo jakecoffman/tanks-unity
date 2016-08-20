@@ -17,9 +17,7 @@ public class LobbyManager : NetworkManager
 
     static public LobbyManager s_Singleton;
 
-
-    [Tooltip("Time in second between all players ready & match start")]
-    public float prematchCountdown = 5.0f;
+    float prematchCountdown = 5.0f;
 
     [Space]
     [Header("UI Reference")]
@@ -65,11 +63,9 @@ public class LobbyManager : NetworkManager
     [SerializeField]
     bool m_ShowLobbyGUI = true;
     [SerializeField]
-    int m_MaxPlayers = 4;
+    public uint maxPlayers = 4;
     [SerializeField]
-    uint m_MaxPlayersPerConnection = 1;
-    [SerializeField]
-    int m_MinPlayers;
+    uint minPlayers;
     [SerializeField]
     MyNetworkLobbyPlayer m_LobbyPlayerPrefab;
     [SerializeField]
@@ -90,11 +86,9 @@ public class LobbyManager : NetworkManager
 
     // properties
     public bool showLobbyGUI { get { return m_ShowLobbyGUI; } set { m_ShowLobbyGUI = value; } }
-    public uint maxPlayers = 4;
-    public int minPlayers { get { return m_MinPlayers; } set { m_MinPlayers = value; } }
     public MyNetworkLobbyPlayer lobbyPlayerPrefab { get { return m_LobbyPlayerPrefab; } set { m_LobbyPlayerPrefab = value; } }
     public GameObject gamePlayerPrefab { get { return m_GamePlayerPrefab; } set { m_GamePlayerPrefab = value; } }
-    public string lobbyScene { get { return m_LobbyScene; } set { m_LobbyScene = value; offlineScene = value; } }
+    public string lobbyScene { get { return m_LobbyScene; } set { m_LobbyScene = value; } }
     public string playScene { get { return m_PlayScene; } set { m_PlayScene = value; } }
 
     void Start()
@@ -112,7 +106,7 @@ public class LobbyManager : NetworkManager
 
     public void OnLobbyClientSceneChanged(NetworkConnection conn)
     {
-        if (Application.loadedLevelName == lobbyScene)
+        if (SceneManager.GetActiveScene().name == lobbyScene)
         {
             if (topPanel.isInGame)
             {
@@ -608,31 +602,17 @@ public class LobbyManager : NetworkManager
         }
     }
 
+    // Unity editor calls this to make sure the inputs in the editor are correct
     void OnValidate()
     {
-        if (m_MaxPlayers <= 0)
+        if (minPlayers < 0)
         {
-            m_MaxPlayers = 1;
+            minPlayers = 0;
         }
 
-        if (m_MaxPlayersPerConnection <= 0)
+        if (minPlayers > maxPlayers)
         {
-            m_MaxPlayersPerConnection = 1;
-        }
-
-        if (m_MaxPlayersPerConnection > maxPlayers)
-        {
-            m_MaxPlayersPerConnection = maxPlayers;
-        }
-
-        if (m_MinPlayers < 0)
-        {
-            m_MinPlayers = 0;
-        }
-
-        if (m_MinPlayers > m_MaxPlayers)
-        {
-            m_MinPlayers = m_MaxPlayers;
+            minPlayers = maxPlayers;
         }
 
         if (m_LobbyPlayerPrefab != null)
@@ -748,7 +728,7 @@ public class LobbyManager : NetworkManager
             totalPlayers += 1;
             readyCount += CheckConnectionIsReadyToBegin(conn);
         }
-        if (readyCount < m_MinPlayers || readyCount < totalPlayers)
+        if (readyCount < minPlayers || readyCount < totalPlayers)
         {
             // not enough players ready yet.
             return;
