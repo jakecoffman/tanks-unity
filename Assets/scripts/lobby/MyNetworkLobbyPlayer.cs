@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
@@ -21,7 +21,7 @@ public class MyNetworkLobbyPlayer : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        var lobby = NetworkManager.singleton as MyNetworkLobbyManager;
+        var lobby = NetworkManager.singleton as LobbyManager;
         if (lobby)
         {
             lobby.lobbySlots[m_Slot] = this;
@@ -38,7 +38,7 @@ public class MyNetworkLobbyPlayer : NetworkBehaviour
     {
         if (LogFilter.logDebug) { Debug.Log("NetworkLobbyPlayer SendReadyToBeginMessage"); }
 
-        var lobby = NetworkManager.singleton as MyNetworkLobbyManager;
+        var lobby = NetworkManager.singleton as LobbyManager;
         if (lobby)
         {
             var msg = new LobbyReadyToBeginMessage();
@@ -52,7 +52,7 @@ public class MyNetworkLobbyPlayer : NetworkBehaviour
     {
         if (LogFilter.logDebug) { Debug.Log("NetworkLobbyPlayer SendReadyToBeginMessage"); }
 
-        var lobby = NetworkManager.singleton as MyNetworkLobbyManager;
+        var lobby = NetworkManager.singleton as LobbyManager;
         if (lobby)
         {
             var msg = new LobbyReadyToBeginMessage();
@@ -66,7 +66,7 @@ public class MyNetworkLobbyPlayer : NetworkBehaviour
     {
         if (LogFilter.logDebug) { Debug.Log("NetworkLobbyPlayer SendSceneLoadedMessage"); }
 
-        var lobby = NetworkManager.singleton as MyNetworkLobbyManager;
+        var lobby = NetworkManager.singleton as LobbyManager;
         if (lobby)
         {
             var msg = new IntegerMessage(playerControllerId);
@@ -76,7 +76,7 @@ public class MyNetworkLobbyPlayer : NetworkBehaviour
 
     void OnLevelWasLoaded()
     {
-        var lobby = NetworkManager.singleton as MyNetworkLobbyManager;
+        var lobby = NetworkManager.singleton as LobbyManager;
         if (lobby)
         {
             // dont even try this in the startup scene
@@ -146,7 +146,7 @@ public class MyNetworkLobbyPlayer : NetworkBehaviour
         if (!ShowLobbyGUI)
             return;
 
-        var lobby = NetworkManager.singleton as MyNetworkLobbyManager;
+        var lobby = NetworkManager.singleton as LobbyManager;
         if (lobby)
         {
             if (!lobby.showLobbyGUI)

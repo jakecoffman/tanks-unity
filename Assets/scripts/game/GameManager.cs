@@ -41,7 +41,7 @@ public class GameManager : NetworkBehaviour {
     IEnumerator ReturnToLobby()
     {
         yield return new WaitForSeconds(secondsUntilBackToLobby);
-        var lobby = NetworkManager.singleton as MyNetworkLobbyManager;
+        var lobby = NetworkManager.singleton as LobbyManager;
         lobby.ServerChangeScene(lobby.lobbyScene);
     }
 
