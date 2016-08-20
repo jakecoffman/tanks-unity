@@ -67,7 +67,7 @@ public class LobbyManager : NetworkManager
     [SerializeField]
     uint minPlayers;
     [SerializeField]
-    MyNetworkLobbyPlayer m_LobbyPlayerPrefab;
+    LobbyPlayer m_LobbyPlayerPrefab;
     [SerializeField]
     GameObject m_GamePlayerPrefab;
     [SerializeField]
@@ -77,7 +77,7 @@ public class LobbyManager : NetworkManager
 
     // runtime data
     List<PendingPlayer> m_PendingPlayers = new List<PendingPlayer>();
-    public MyNetworkLobbyPlayer[] lobbySlots;
+    public LobbyPlayer[] lobbySlots;
 
     // static message objects to avoid runtime-allocations
     static LobbyReadyToBeginMessage s_ReadyToBeginMessage = new LobbyReadyToBeginMessage();
@@ -86,7 +86,7 @@ public class LobbyManager : NetworkManager
 
     // properties
     public bool showLobbyGUI { get { return m_ShowLobbyGUI; } set { m_ShowLobbyGUI = value; } }
-    public MyNetworkLobbyPlayer lobbyPlayerPrefab { get { return m_LobbyPlayerPrefab; } set { m_LobbyPlayerPrefab = value; } }
+    public LobbyPlayer lobbyPlayerPrefab { get { return m_LobbyPlayerPrefab; } set { m_LobbyPlayerPrefab = value; } }
     public GameObject gamePlayerPrefab { get { return m_GamePlayerPrefab; } set { m_GamePlayerPrefab = value; } }
     public string lobbyScene { get { return m_LobbyScene; } set { m_LobbyScene = value; } }
     public string playScene { get { return m_PlayScene; } set { m_PlayScene = value; } }
@@ -458,7 +458,7 @@ public class LobbyManager : NetworkManager
     {
         if (lobbySlots.Length == 0)
         {
-            lobbySlots = new MyNetworkLobbyPlayer[maxPlayers];
+            lobbySlots = new LobbyPlayer[maxPlayers];
         }
 
         if (m_LobbyPlayerPrefab == null || m_LobbyPlayerPrefab.gameObject == null)
@@ -650,7 +650,7 @@ public class LobbyManager : NetworkManager
 
     void SceneLoadedForPlayer(NetworkConnection conn, GameObject lobbyPlayerGameObject)
     {
-        var lobbyPlayer = lobbyPlayerGameObject.GetComponent<MyNetworkLobbyPlayer>();
+        var lobbyPlayer = lobbyPlayerGameObject.GetComponent<LobbyPlayer>();
         if (lobbyPlayer == null)
         {
             // not a lobby player.. dont replace it
@@ -700,7 +700,7 @@ public class LobbyManager : NetworkManager
         {
             if (player.IsValid)
             {
-                var lobbyPlayer = player.gameObject.GetComponent<MyNetworkLobbyPlayer>();
+                var lobbyPlayer = player.gameObject.GetComponent<LobbyPlayer>();
                 if (lobbyPlayer.readyToBegin)
                 {
                     countPlayers += 1;
@@ -857,7 +857,7 @@ public class LobbyManager : NetworkManager
             newLobbyGameObject = (GameObject)Instantiate(lobbyPlayerPrefab.gameObject, Vector3.zero, Quaternion.identity);
         }
 
-        var newLobbyPlayer = newLobbyGameObject.GetComponent<MyNetworkLobbyPlayer>();
+        var newLobbyPlayer = newLobbyGameObject.GetComponent<LobbyPlayer>();
         newLobbyPlayer.slot = slot;
         lobbySlots[slot] = newLobbyPlayer;
 
@@ -867,7 +867,7 @@ public class LobbyManager : NetworkManager
     public override void OnServerRemovePlayer(NetworkConnection conn, PlayerController player)
     {
         var playerControllerId = player.playerControllerId;
-        byte slot = player.gameObject.GetComponent<MyNetworkLobbyPlayer>().slot;
+        byte slot = player.gameObject.GetComponent<LobbyPlayer>().slot;
         lobbySlots[slot] = null;
         base.OnServerRemovePlayer(conn, player);
 
@@ -875,7 +875,7 @@ public class LobbyManager : NetworkManager
         {
             if (p != null)
             {
-                p.GetComponent<MyNetworkLobbyPlayer>().readyToBegin = false;
+                p.GetComponent<LobbyPlayer>().readyToBegin = false;
 
                 s_LobbyReadyToBeginMessage.slotId = p.slot;
                 s_LobbyReadyToBeginMessage.readyState = false;
@@ -904,7 +904,7 @@ public class LobbyManager : NetworkManager
                 if (NetworkServer.active)
                 {
                     // re-add the lobby object
-                    lobbyPlayer.GetComponent<MyNetworkLobbyPlayer>().readyToBegin = false;
+                    lobbyPlayer.GetComponent<LobbyPlayer>().readyToBegin = false;
                     NetworkServer.ReplacePlayerForConnection(uv.connectionToClient, lobbyPlayer.gameObject, uv.playerControllerId);
                 }
             }
@@ -933,7 +933,7 @@ public class LobbyManager : NetworkManager
         PlayerController lobbyController = netMsg.conn.playerControllers.First();
 
         // set this player ready
-        var lobbyPlayer = lobbyController.gameObject.GetComponent<MyNetworkLobbyPlayer>();
+        var lobbyPlayer = lobbyController.gameObject.GetComponent<LobbyPlayer>();
         lobbyPlayer.readyToBegin = s_ReadyToBeginMessage.readyState;
 
         // tell every player that this player is ready
@@ -980,7 +980,7 @@ public class LobbyManager : NetworkManager
 
         if (lobbySlots.Length == 0)
         {
-            lobbySlots = new MyNetworkLobbyPlayer[maxPlayers];
+            lobbySlots = new LobbyPlayer[maxPlayers];
         }
 
         NetworkServer.RegisterHandler(MsgType.LobbyReadyToBegin, OnServerReadyToBeginMessage);
