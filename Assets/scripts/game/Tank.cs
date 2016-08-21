@@ -129,7 +129,7 @@ public class Tank : NetworkBehaviour {
             yield break;
         }
 
-        if (combat.numBullets >= combat.maxBullets)
+        if (combat.firedBullets >= combat.maxBullets)
         {
             yield break;
         }

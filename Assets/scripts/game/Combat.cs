@@ -16,7 +16,7 @@ public class Combat : NetworkBehaviour {
 
     [HideInInspector]
     [SyncVar]
-    public int numBullets = 0;
+    public int firedBullets = 0;
     public int maxBullets = 5;
 
     [Server]
@@ -57,16 +57,27 @@ public class Combat : NetworkBehaviour {
     [Command]
 	public void CmdFire(GameObject player, Vector3 position, Vector3 turretRotation) // turretRoration is passed in otherwise server's rotation is used
     {
-        if (numBullets >= maxBullets)
+        if (firedBullets >= maxBullets)
         {
             return;
         }
-        numBullets++;
+        firedBullets++;
         var bullet = Instantiate(bulletPrefab, position, Quaternion.Euler(turretRotation)) as GameObject;
 
         // set direction of bullet and rotation
         bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * shotSpeed;
-        bullet.GetComponent<Bullet>().player = this;
+        bullet.GetComponent<Bullet>().combat = this;
+        bullet.GetComponent<Renderer>().material.color = player.GetComponent<Tank>().color;
         NetworkServer.Spawn (bullet);
+        RpcFired(bullet, player);
+        Destroy(bullet, 10.0f);
     }
+
+    [ClientRpc]
+    void RpcFired(GameObject bullet, GameObject player)
+    {
+        bullet.GetComponent<Bullet>().combat = this;
+        bullet.GetComponent<Renderer>().material.color = player.GetComponent<Tank>().color;
+    }
+
 }

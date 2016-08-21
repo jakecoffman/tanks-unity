@@ -5,7 +5,7 @@ using System.Collections;
 public class Bullet : NetworkBehaviour {
 
     [HideInInspector]
-    public Combat player;
+    public Combat combat;
     public int damageGiven = 1;
 
 	Rigidbody2D rigid2d;
@@ -13,31 +13,14 @@ public class Bullet : NetworkBehaviour {
 
 	int bounce = 0;
 
-    void Start()
-    {
-        if (isServer)
-        {
-            RpcSetColor(player.GetComponent<Tank>().color);
-            rigid2d = GetComponent<Rigidbody2D>();
-            Predestine();
-        }
-        Destroy(gameObject, 10.0f);
-    }
-    
-    [ClientRpc]
-    void RpcSetColor(Color color)
-    {
-        GetComponent<Renderer>().material.color = color;
-    }
-
     // the physics is unreliable so occationally (like at start or after bounce) we recalculate the wall we expect to 
     // hit so if we hit between walls we can ignore the wall that we shouldn't have hit!
     void Predestine() {
 		rayHit = Physics2D.Raycast(transform.position, rigid2d.velocity, 100f, 1 << LayerMask.NameToLayer("BlockingLayer"));
 	}
-		
+
 	void SpendBullet() {
-		player.numBullets--;
+		combat.firedBullets--;
 		NetworkServer.Destroy(gameObject);
 	}
 
@@ -47,7 +30,7 @@ public class Bullet : NetworkBehaviour {
         var hit = collider.gameObject;
         if (hit.tag == "Player")
         {
-            if (hit == player.gameObject && bounce == 0)
+            if (hit == this.combat.gameObject && bounce == 0)
             {
                 return;
             }
