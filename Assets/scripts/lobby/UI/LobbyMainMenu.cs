@@ -63,7 +63,7 @@ public class LobbyMainMenu : MonoBehaviour
             matchNameInput.text,
             lobbyManager.maxPlayers,
             true, // match advertise
-            "", // match password
+            "", "", "", 0, 0,
             lobbyManager.OnMatchCreate); // creation callback
 
         lobbyManager.backDelegate = lobbyManager.StopHost;

@@ -34,12 +34,9 @@ public class LobbyPlayer : NetworkBehaviour
     [SyncVar(hook = "OnMyColor")]
     public Color playerColor = Color.white;
     [SyncVar]
-    byte m_Slot;
+    public byte slot;
     [SyncVar]
-    bool m_ReadyToBegin;
-
-    public byte slot { get { return m_Slot; } set { m_Slot = value; } }
-    public bool readyToBegin { get { return m_ReadyToBegin; } set { m_ReadyToBegin = value; } }
+    public bool readyToBegin;
 
     public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
     public Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
@@ -167,7 +164,7 @@ public class LobbyPlayer : NetworkBehaviour
             Text textComponent = readyButton.transform.GetChild(0).GetComponent<Text>();
             textComponent.text = "READY";
             textComponent.color = ReadyColor;
-            readyButton.interactable = false;
+            readyButton.interactable = true;
             colorButton.interactable = false;
             nameInput.interactable = false;
         }

@@ -226,7 +226,7 @@ public class LobbyManager : NetworkManager
     {
         if (_isMatchmaking)
         {
-            this.matchMaker.DestroyMatch((NetworkID)_currentMatchID, OnMatchDestroyed);
+            this.matchMaker.DestroyMatch((NetworkID)_currentMatchID, 1, OnMatchDestroyed);
             _disconnectServer = true;
         }
         else
@@ -282,14 +282,13 @@ public class LobbyManager : NetworkManager
         SetServerInfo("Hosting", networkAddress);
     }
 
-    public override void OnMatchCreate(CreateMatchResponse matchInfo)
+    public override void OnMatchCreate(bool success, string extendedInfo, MatchInfo matchInfo)
     {
-        base.OnMatchCreate(matchInfo);
-
+        base.OnMatchCreate(success, extendedInfo, matchInfo);
         _currentMatchID = (System.UInt64)matchInfo.networkId;
     }
 
-    public void OnMatchDestroyed(BasicResponse resp)
+    public void OnMatchDestroyed(bool success, string extendedInfo)
     {
         if (_disconnectServer)
         {
