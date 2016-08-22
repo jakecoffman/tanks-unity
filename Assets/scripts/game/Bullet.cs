@@ -15,9 +15,9 @@ public class Bullet : NetworkBehaviour {
 
     void Start()
     {
+        rigid2d = GetComponent<Rigidbody2D>();
         if (isServer)
         {
-            rigid2d = GetComponent<Rigidbody2D>();
             Predestine();
         }
     }
@@ -66,6 +66,9 @@ public class Bullet : NetworkBehaviour {
 				rigid2d.velocity = Vector2.Reflect(rigid2d.velocity, rayHit.normal);
                 transform.rotation = new Quaternion(-transform.rotation.x, transform.rotation.y, transform.rotation.z, -transform.rotation.w);
 				Predestine();
+
+                RpcBounced(rigid2d.velocity, transform.rotation);
+
 				return;
 			}
 			SpendBullet ();
@@ -79,5 +82,12 @@ public class Bullet : NetworkBehaviour {
             hit.GetComponent<Pod>().TakeDamage(damageGiven);
 			SpendBullet ();
         }
+    }
+
+    [ClientRpc]
+    void RpcBounced(Vector2 velocity, Quaternion rotation)
+    {
+        rigid2d.velocity = velocity;
+        transform.rotation = rotation;
     }
 }
