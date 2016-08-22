@@ -13,10 +13,20 @@ public class Bullet : NetworkBehaviour {
 
 	int bounce = 0;
 
+    void Start()
+    {
+        if (isServer)
+        {
+            rigid2d = GetComponent<Rigidbody2D>();
+            Predestine();
+        }
+    }
+
     // the physics is unreliable so occationally (like at start or after bounce) we recalculate the wall we expect to 
     // hit so if we hit between walls we can ignore the wall that we shouldn't have hit!
     void Predestine() {
 		rayHit = Physics2D.Raycast(transform.position, rigid2d.velocity, 100f, 1 << LayerMask.NameToLayer("BlockingLayer"));
+        Debug.Log("Predestine:" + rayHit.distance);
 	}
 
 	void SpendBullet() {
@@ -47,11 +57,11 @@ public class Bullet : NetworkBehaviour {
                 return;
             }
             if (hit != rayHit.collider.gameObject) {
-				// prevents hitting between walls that are touching
-				return;
+                // prevents hitting between walls that are touching
+                return;
 			}
 			if (bounce < 1) {
-				bounce++;
+                bounce++;
 
 				rigid2d.velocity = Vector2.Reflect(rigid2d.velocity, rayHit.normal);
                 transform.rotation = new Quaternion(-transform.rotation.x, transform.rotation.y, transform.rotation.z, -transform.rotation.w);
