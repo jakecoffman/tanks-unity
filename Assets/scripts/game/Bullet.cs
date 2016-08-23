@@ -26,7 +26,6 @@ public class Bullet : NetworkBehaviour {
     // hit so if we hit between walls we can ignore the wall that we shouldn't have hit!
     void Predestine() {
 		rayHit = Physics2D.Raycast(transform.position, rigid2d.velocity, 100f, 1 << LayerMask.NameToLayer("BlockingLayer"));
-        Debug.Log("Predestine:" + rayHit.distance);
 	}
 
 	void SpendBullet() {

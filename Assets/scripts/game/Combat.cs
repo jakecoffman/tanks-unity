@@ -5,8 +5,10 @@ using System.Collections;
 public class Combat : NetworkBehaviour {
 
     public GameObject bulletPrefab;
-    public const float shotSpeed = 5f;
-    public const int maxHealth = 1;
+
+    const float shotSpeed = 5f;
+    const int maxHealth = 1;
+
     [SyncVar]
     public int health = maxHealth;
     [SyncVar]
@@ -19,6 +21,9 @@ public class Combat : NetworkBehaviour {
     public int firedBullets = 0;
     public int maxBullets = 5;
 
+    float _shotCooldown = 0.2f;
+    float _shotTimer = 0;
+
     [Server]
     public void TakeDamage(int amount)
     {
@@ -28,6 +33,7 @@ public class Combat : NetworkBehaviour {
             health = 0;
             isDead = true;
             RpcDie();
+            smoke = Instantiate(GetComponent<Tank>().smokePrefab, transform.position, Quaternion.identity) as GameObject;
             GameObject gameManager = GameObject.FindGameObjectWithTag("GameController");
             gameManager.GetComponent<GameManager>().RemoveTank(gameObject);
         }
@@ -54,13 +60,34 @@ public class Combat : NetworkBehaviour {
 		}
 	}
 
+    void Update()
+    {
+        _shotTimer += Time.deltaTime;
+    }
+
+    public IEnumerator Fire(Vector3 position, Vector3 turretRotation)
+    {
+        if (firedBullets >= maxBullets)
+        {
+            yield break;
+        }
+
+        CmdFire(gameObject, position, turretRotation);
+        yield return new WaitForSeconds(_shotCooldown);
+    }
+
     [Command]
 	public void CmdFire(GameObject player, Vector3 position, Vector3 turretRotation) // turretRoration is passed in otherwise server's rotation is used
     {
+        if (_shotTimer < _shotCooldown)
+        {
+            return;
+        }
         if (firedBullets >= maxBullets)
         {
             return;
         }
+        _shotTimer = 0;
         firedBullets++;
         var bullet = Instantiate(bulletPrefab, position, Quaternion.Euler(turretRotation)) as GameObject;
 

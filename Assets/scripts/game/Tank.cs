@@ -7,62 +7,56 @@ public class Tank : NetworkBehaviour {
 	public string playerName;
 	[SyncVar]
     public Color color;
-    public float speed = 20f;
-    public float turnSpeed = 3.5f;
-	public GameObject nameTagPrefab;
-	public GameObject smokePrefab;
 
-	// TODO enforce server side
-	public float timeBetweenShots = 0.2f;
-    GameObject turret;
-	GameObject nameTag;
+    public GameObject nameTagPrefab;
+    public GameObject smokePrefab;
 
-    private bool isFiring = false;
+    const float speed = 20f;
+    const float turnSpeed = 3.5f;
 
-    private Combat combat;
+    GameObject _turret;
+	GameObject _nameTag;
+    bool _isFiring = false;
+    Combat _combat;
     Rigidbody2D _rigid;
-
-    public override void OnStartLocalPlayer()
-    {
-        _rigid = GetComponent<Rigidbody2D>();
-    }
 
     void Awake()
     {
-        turret = transform.GetChild(0).gameObject;
-        combat = GetComponent<Combat>();
-        nameTag = Instantiate(nameTagPrefab, transform.position, Quaternion.identity) as GameObject;
+        _turret = transform.GetChild(0).gameObject;
+        _combat = GetComponent<Combat>();
+        _nameTag = Instantiate(nameTagPrefab, transform.position, Quaternion.identity) as GameObject;
     }
 
 	void Start() {
-		foreach (SpriteRenderer r in GetComponentsInChildren<SpriteRenderer>())
+        _rigid = GetComponent<Rigidbody2D>();
+        foreach (SpriteRenderer r in GetComponentsInChildren<SpriteRenderer>())
 		{
 			r.material.color = color;
 		}
         if (isLocalPlayer)
         {
-            nameTag.GetComponentInChildren<TextMesh>().text = "You";
+            _nameTag.GetComponentInChildren<TextMesh>().text = "You";
         }
         else
         {
-            nameTag.GetComponentInChildren<TextMesh>().text = playerName;
+            _nameTag.GetComponentInChildren<TextMesh>().text = playerName;
         }
-        nameTag.GetComponentInChildren<MeshRenderer>().enabled = true;
-        nameTag.GetComponentInChildren<Renderer>().sortingLayerName = "Player";
+        _nameTag.GetComponentInChildren<MeshRenderer>().enabled = true;
+        _nameTag.GetComponentInChildren<Renderer>().sortingLayerName = "Player";
         ShowNameTags();
         StartCoroutine("FadeOut");
     }
 
     void ShowNameTags()
     {
-        var renderer = nameTag.GetComponentInChildren<Renderer>();
+        var renderer = _nameTag.GetComponentInChildren<Renderer>();
         var c = renderer.material.color;
         c.a = 1f;
         renderer.material.color = c;
     }
 
 	IEnumerator FadeOut() {
-		var renderer = nameTag.GetComponentInChildren<Renderer> ();
+		var renderer = _nameTag.GetComponentInChildren<Renderer> ();
 		var opacity = 1f;
 		while (opacity > 0) {
 			yield return new WaitForSeconds (0.1f);
@@ -73,13 +67,9 @@ public class Tank : NetworkBehaviour {
 		}
 	}
 
-	void FollowText() {
-		nameTag.transform.position = transform.position;
-	}
-
     void OnGUI()
     {
-        FollowText();
+         _nameTag.transform.position = transform.position;
     }
 
     void Update()
@@ -97,15 +87,17 @@ public class Tank : NetworkBehaviour {
 
     void FixedUpdate()
     {
-        if (!isLocalPlayer || combat.isDead)
+        if (!isLocalPlayer || _combat.isDead)
         {
             return;
         }
         Move();
         Aim();
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !_isFiring)
         {
-            StartCoroutine(Fire());
+            _isFiring = true;
+            StartCoroutine(_combat.Fire(_turret.transform.position + _turret.transform.up * 0.6f, _turret.transform.rotation.eulerAngles));
+            _isFiring = false;
         }
     }
 
@@ -119,31 +111,12 @@ public class Tank : NetworkBehaviour {
         // -90 because my sprite is aiming up
         float angle = (Mathf.Atan2(mouse_pos.y, mouse_pos.x) * Mathf.Rad2Deg) - 90;
         Vector3 rotationVector = new Vector3(0, 0, angle);
-        turret.transform.rotation = Quaternion.Euler(rotationVector);
-    }
-
-    IEnumerator Fire()
-    {
-        if (isFiring)
-        {
-            yield break;
-        }
-
-        if (combat.firedBullets >= combat.maxBullets)
-        {
-            yield break;
-        }
-        isFiring = true;
-
-		combat.CmdFire(gameObject, turret.transform.position + turret.transform.up * 0.6f, turret.transform.rotation.eulerAngles);
-        // TODO: Enforce server side?
-        yield return new WaitForSeconds(timeBetweenShots);
-        isFiring = false;
+        _turret.transform.rotation = Quaternion.Euler(rotationVector);
     }
 
     void Move()
     {
-		if (isFiring) {
+		if (_isFiring) {
 			return;
 		}
 
