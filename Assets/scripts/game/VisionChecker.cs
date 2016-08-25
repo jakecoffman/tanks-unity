@@ -23,7 +23,7 @@ public class VisionChecker : NetworkBehaviour {
     }
 
     // The OnCheckObservers function is called on the server on each networked object when a new player enters the game.
-    // If it returns true, then that player is added to the object�s observers.
+    // If it returns true, then that player is added to the object's observers.
     public override bool OnCheckObserver(NetworkConnection newObserver)
     {
         if (forceHidden)
@@ -52,37 +52,56 @@ public class VisionChecker : NetworkBehaviour {
     // The NetworkServer then handles sending ObjectHide and ObjectSpawn messages based on the differences between the old and new visibility sets.
     public override bool OnRebuildObservers(HashSet<NetworkConnection> observers, bool initial)
     {
-        Debug.Log("OnRebuildObservers");
-        
-        // ensure player can still see themself
-        var uv = GetComponent<NetworkIdentity>();
-        if (uv.connectionToClient != null)
-        {
-            observers.Add(uv.connectionToClient);
-        }
-
         if (forceHidden)
         {
+            // ensure player can still see themself
+            var uv = GetComponent<NetworkIdentity>();
+            if (uv.connectionToClient != null)
+            {
+                observers.Add(uv.connectionToClient);
+            }
             return true;
         }
 
         // find players within range
-        var hits = Physics2D.OverlapCircleAll(transform.position, visRange);
+        var hits = Physics2D.OverlapCircleAll(transform.position, visRange, 1 << LayerMask.NameToLayer("Player"));
         for (int i = 0; i < hits.Length; i++)
         {
-            var hit = hits[i];
+            var other = hits[i];
             // (if an object has a connectionToClient, it is a player)
-            uv = hit.GetComponent<NetworkIdentity>();
-            if (uv != null && uv.connectionToClient != null)
+            var otherNetworkIdentity = other.GetComponent<NetworkIdentity>();
+            if (otherNetworkIdentity != null && otherNetworkIdentity.connectionToClient != null)
             {
-                var pos = uv.transform.position;
+                // you can see yourself
+                if (other.gameObject == gameObject)
+                {
+                    observers.Add(otherNetworkIdentity.connectionToClient);
+                    continue;
+                }
+
+                // everyone can see dead players
+                if (GetComponent<Combat>().isDead)
+                {
+                    observers.Add(otherNetworkIdentity.connectionToClient);
+                    continue;
+                }
+
+                // dead players can see everyone
+                if (otherNetworkIdentity.GetComponent<Combat>().isDead)
+                {
+                    observers.Add(otherNetworkIdentity.connectionToClient);
+                    continue;
+                }
+
+                // cast a ray in their direction, if it hits nothing then there's a clear line of sight to them
+                var pos = otherNetworkIdentity.transform.position;
                 var heading = pos - transform.position;
                 var distance = heading.magnitude;
                 var layers = 1 << LayerMask.NameToLayer("BlockingLayer") | 1 << LayerMask.NameToLayer("PodLayer");
                 var ray = Physics2D.Raycast(transform.position, heading / distance, distance, layers);
                 if (ray.collider == null)
                 {
-                    observers.Add(uv.connectionToClient);
+                    observers.Add(otherNetworkIdentity.connectionToClient);
                 }
             }
         }
