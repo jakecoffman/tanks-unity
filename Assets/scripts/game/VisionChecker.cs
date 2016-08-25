@@ -108,7 +108,7 @@ public class VisionChecker : NetworkBehaviour {
         return true;
     }
 
-    // called hiding and showing objects on the host
+    // called hiding and showing objects on the server when a player is hosting the game
     public override void OnSetLocalVisibility(bool vis)
     {
         SetVis(gameObject, vis);

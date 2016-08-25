@@ -57,6 +57,10 @@ public class LobbyPlayerList : MonoBehaviour
         int i = 0;
         foreach (LobbyPlayer p in _players)
         {
+            if (p == null)
+            {
+                continue;
+            }
             p.OnPlayerListChanged(i);
             ++i;
         }
