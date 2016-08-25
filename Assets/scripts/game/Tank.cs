@@ -19,6 +19,8 @@ public class Tank : NetworkBehaviour {
     bool _isFiring = false;
     Combat _combat;
     Rigidbody2D _rigid;
+    float _move;
+    float _rotation;
 
     void Awake()
     {
@@ -83,10 +85,6 @@ public class Tank : NetworkBehaviour {
         {
             StartCoroutine("FadeOut");
         }
-    }
-
-    void FixedUpdate()
-    {
         if (!isLocalPlayer || _combat.isDead)
         {
             return;
@@ -99,6 +97,16 @@ public class Tank : NetworkBehaviour {
             StartCoroutine(_combat.Fire(_turret.transform.position + _turret.transform.up * 0.6f, _turret.transform.rotation.eulerAngles));
             _isFiring = false;
         }
+    }
+
+    void FixedUpdate()
+    {
+        if (!isLocalPlayer || _combat.isDead)
+        {
+            return;
+        }
+        _rigid.MoveRotation(_rigid.rotation + _rotation);
+        _rigid.AddForce(transform.up * _move);
     }
 
     void Aim()
@@ -120,31 +128,28 @@ public class Tank : NetworkBehaviour {
 			return;
 		}
 
-        float move = 0;
+        _move = 0;
         if(Input.GetKey(KeyCode.W))
         {
-            move = speed;
+            _move = speed;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            move = -speed;
+            _move = -speed;
         }
 
-        float rotation = 0f;
+        _rotation = 0f;
         if (Input.GetKey(KeyCode.A))
         {
-            rotation += -turnSpeed;
+            _rotation += -turnSpeed;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            rotation += turnSpeed;
+            _rotation += turnSpeed;
         }
         if (speed > 0)
         {
-            rotation *= -1;
+            _rotation *= -1;
         }
-
-        _rigid.MoveRotation(_rigid.rotation + rotation);
-        _rigid.AddForce(transform.up * move);
     }
 }
