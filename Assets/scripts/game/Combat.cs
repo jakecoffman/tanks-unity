@@ -99,13 +99,4 @@ public class Combat : NetworkBehaviour {
         //RpcFired(bullet, player);
         Destroy(bullet, 10.0f);
     }
-
-    //[ClientRpc]
-    //void RpcFired(GameObject bullet, GameObject player)
-    //{
-        // this bullet will not exist for players that haven't seen it fire
-        // bullet.GetComponent<Bullet>().combat = this;
-        // bullet.GetComponent<Renderer>().material.color = player.GetComponent<Tank>().color;
-    //}
-
 }

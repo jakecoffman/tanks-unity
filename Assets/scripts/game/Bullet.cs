@@ -41,7 +41,6 @@ public class Bullet : NetworkBehaviour {
 	[ServerCallback]
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("HERE WE ARE");
         var hit = collider.gameObject;
         if (hit.tag == "Player")
         {
