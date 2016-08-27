@@ -92,7 +92,7 @@ public class Combat : NetworkBehaviour {
         var bullet = Instantiate(bulletPrefab, position, Quaternion.Euler(turretRotation)) as GameObject;
 
         // set direction of bullet and rotation
-        bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * shotSpeed;
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.up * shotSpeed;
         bullet.GetComponent<Bullet>().combat = this;
         bullet.GetComponent<Renderer>().material.color = player.GetComponent<Tank>().color;
         NetworkServer.Spawn (bullet);

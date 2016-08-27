@@ -8,14 +8,14 @@ public class Bullet : NetworkBehaviour {
     public Combat combat;
     public int damageGiven = 1;
 
-	Rigidbody2D rigid2d;
-	RaycastHit2D rayHit;
+	Rigidbody _rigid;
+	RaycastHit rayHit;
 
 	int bounce = 0;
 
     void Start()
     {
-        rigid2d = GetComponent<Rigidbody2D>();
+        _rigid = GetComponent<Rigidbody>();
         if (isServer)
         {
             Predestine();
@@ -25,7 +25,12 @@ public class Bullet : NetworkBehaviour {
     // the physics is unreliable so occationally (like at start or after bounce) we recalculate the wall we expect to 
     // hit so if we hit between walls we can ignore the wall that we shouldn't have hit!
     void Predestine() {
-		rayHit = Physics2D.Raycast(transform.position, rigid2d.velocity, 100f, 1 << LayerMask.NameToLayer("BlockingLayer"));
+        var ray = new Ray(transform.position, _rigid.velocity);
+        var wasHit = Physics.Raycast(ray, out rayHit, 100f, 1 << LayerMask.NameToLayer("BlockingLayer"));
+        if (!wasHit)
+        {
+            Debug.Log("Raycast hit nothing. Out of bounds?" + transform.position);
+        }
 	}
 
 	void SpendBullet() {
@@ -34,8 +39,9 @@ public class Bullet : NetworkBehaviour {
 	}
 
 	[ServerCallback]
-    void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerEnter(Collider collider)
     {
+        Debug.Log("HERE WE ARE");
         var hit = collider.gameObject;
         if (hit.tag == "Player")
         {
@@ -62,11 +68,11 @@ public class Bullet : NetworkBehaviour {
 			if (bounce < 1) {
                 bounce++;
 
-				rigid2d.velocity = Vector2.Reflect(rigid2d.velocity, rayHit.normal);
+				_rigid.velocity = Vector2.Reflect(_rigid.velocity, rayHit.normal);
                 transform.rotation = new Quaternion(-transform.rotation.x, transform.rotation.y, transform.rotation.z, -transform.rotation.w);
 				Predestine();
 
-                RpcBounced(rigid2d.velocity, transform.rotation);
+                RpcBounced(_rigid.velocity, transform.rotation);
 
 				return;
 			}
@@ -86,7 +92,7 @@ public class Bullet : NetworkBehaviour {
     [ClientRpc]
     void RpcBounced(Vector2 velocity, Quaternion rotation)
     {
-        rigid2d.velocity = velocity;
+        _rigid.velocity = velocity;
         transform.rotation = rotation;
     }
 }
