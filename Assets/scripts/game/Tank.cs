@@ -29,12 +29,13 @@ public class Tank : NetworkBehaviour {
         _rigid = GetComponent<Rigidbody>();
         _combat = GetComponent<Combat>();
         _nameTag = Instantiate(nameTagPrefab, transform.position, Quaternion.identity) as GameObject;
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Follow>().targetTrans = transform;
     }
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Follow>().targetTrans = transform;
+        transform.GetChild(0).gameObject.SetActive(true);
     }
 
 	void Start() {
