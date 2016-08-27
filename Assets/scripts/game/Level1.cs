@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
 public class Level1 : MonoBehaviour {
-    public GameObject floorPrefab;
-
     int columns = 16;
     int rows = 16;
 
@@ -21,8 +19,6 @@ public class Level1 : MonoBehaviour {
         {
             for (var j=1; j<rows-1; j++)
             {
-                var floor = Instantiate(floorPrefab, new Vector3(i, j, 0), Quaternion.identity) as GameObject;
-                floor.transform.SetParent(parent);
             }
         }
     }

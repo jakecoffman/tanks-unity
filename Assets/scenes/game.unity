@@ -4802,6 +4802,7 @@ GameObject:
   - 92: {fileID: 1546366838}
   - 124: {fileID: 1546366837}
   - 81: {fileID: 1546366836}
+  - 114: {fileID: 1546366841}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4877,6 +4878,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1546366841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1546366835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c930388f307c428ca02a4fb486227aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isStatic: 0
+  halfViewboxSize: {x: 12.928, y: 8.08}
 --- !u!1001 &1554278969
 Prefab:
   m_ObjectHideFlags: 0
@@ -4999,6 +5013,7 @@ GameObject:
   - 4: {fileID: 1569205552}
   - 114: {fileID: 1569205553}
   - 114: {fileID: 1569205554}
+  - 114: {fileID: 1569205555}
   m_Layer: 14
   m_Name: Level1
   m_TagString: Untagged
@@ -5146,7 +5161,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b8b76f18630de4bbfac6b4a6bbdbda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorPrefab: {fileID: 166858, guid: a482c9fc88ed4d64eb55249619226e99, type: 2}
+--- !u!114 &1569205555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1569205551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce56005f84bc24bd4b5dfd672a1db5fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isStatic: 1
+  offScreenDistance: 3
 --- !u!1001 &1591208915
 Prefab:
   m_ObjectHideFlags: 0
@@ -5475,6 +5502,49 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 441278, guid: 0525671e16bae9448bb640ea2598a5f0, type: 2}
   m_PrefabInternal: {fileID: 265468459}
+--- !u!1 &1713596584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1713596586}
+  - 114: {fileID: 1713596585}
+  m_Layer: 0
+  m_Name: LOSManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1713596585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1713596584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4923cc98a60f24849a7dcf9577e7622d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  physicsOpt: 0
+  viewboxExtension: 1.01
+  debugMode: 0
+--- !u!4 &1713596586
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1713596584}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.4744887, y: 0.76979226, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
 --- !u!1001 &1733242594
 Prefab:
   m_ObjectHideFlags: 0

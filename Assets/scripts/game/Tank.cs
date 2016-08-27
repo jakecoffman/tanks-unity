@@ -14,23 +14,30 @@ public class Tank : NetworkBehaviour {
     const float speed = 20f;
     const float turnSpeed = 3.5f;
 
+    GameObject _camera;
     GameObject _turret;
 	GameObject _nameTag;
     bool _isFiring = false;
     Combat _combat;
-    Rigidbody2D _rigid;
+    Rigidbody _rigid;
     float _move;
     float _rotation;
 
     void Awake()
     {
-        _turret = transform.GetChild(0).gameObject;
+        _turret = transform.GetChild(1).gameObject;
+        _rigid = GetComponent<Rigidbody>();
         _combat = GetComponent<Combat>();
         _nameTag = Instantiate(nameTagPrefab, transform.position, Quaternion.identity) as GameObject;
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Follow>().targetTrans = transform;
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
     }
 
 	void Start() {
-        _rigid = GetComponent<Rigidbody2D>();
         foreach (SpriteRenderer r in GetComponentsInChildren<SpriteRenderer>())
 		{
 			r.material.color = color;
@@ -105,7 +112,8 @@ public class Tank : NetworkBehaviour {
         {
             return;
         }
-        _rigid.MoveRotation(_rigid.rotation + _rotation);
+        Quaternion deltaRotation = Quaternion.Euler(0, 0, _rotation);
+        _rigid.MoveRotation(_rigid.rotation * deltaRotation);
         _rigid.AddForce(transform.up * _move);
     }
 
