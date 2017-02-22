@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -15,7 +15,6 @@ namespace LOS.Event {
 
 		[Tooltip ("Event source detect range.")]
 		public float distance;
-
 
 		public delegate void HandleTriggersDelegate (List<LOSEventTrigger> triggers);
 		public event HandleTriggersDelegate OnNewTriggersDetected;
@@ -52,41 +51,72 @@ namespace LOS.Event {
 			List<LOSEventTrigger> triggeredTriggers = new List<LOSEventTrigger>();
 			List<LOSEventTrigger> notTriggeredTriggers = new List<LOSEventTrigger>();
 
+            // TODO check 4 corners of the trigger's transform rather than dead center
 			foreach (LOSEventTrigger trigger in triggers) {
+                if (!SHelper.CheckGameObjectInLayer(trigger.gameObject, triggerLayers)) continue;
+                bool triggered = false;
 
-				if (!SHelper.CheckGameObjectInLayer(trigger.gameObject, triggerLayers)) continue;
+                for (int i = 0; i < 4; i++)
+                {
+                    Vector3 pos = new Vector3();
 
-				bool triggered = false;
+                    // TODO this is stupid
+                    if (i==0)
+                    {
+                        pos.x = trigger.position.x + 0.5f;
+                        pos.y = trigger.position.y + 0.5f;
+                    } else if (i == 2)
+                    {
+                        pos.x = trigger.position.x + 0.5f;
+                        pos.y = trigger.position.y - 0.5f;
+                    } else if (i==3)
+                    {
+                        pos.x = trigger.position.x - 0.5f;
+                        pos.y = trigger.position.y + 0.5f;
+                    } else
+                    {
+                        pos.x = trigger.position.x - 0.5f;
+                        pos.y = trigger.position.y - 0.5f;
+                    }
 
-				Vector3 direction = trigger.position - _trans.position;
-				float degree = SMath.VectorToDegree(direction);
-				if (lightSource != null) {
-					if (!lightSource.CheckDegreeWithinCone(degree)) {
-						notTriggeredTriggers.Add(trigger);
-						continue;
-					}
-				}
+                    Vector3 direction = pos - _trans.position;
+                    float degree = SMath.VectorToDegree(direction);
+                    if (lightSource != null)
+                    {
+                        if (!lightSource.CheckDegreeWithinCone(degree))
+                        {
+                            notTriggeredTriggers.Add(trigger);
+                            continue;
+                        }
+                    }
 
-				if (direction.sqrMagnitude <= distance * distance) {	// Within distance
-					if (triggeredTriggers.Contains(trigger)) continue;		// May be added previously
+                    if (direction.sqrMagnitude <= distance * distance)
+                    {   // Within distance
+                        if (triggeredTriggers.Contains(trigger)) continue;      // May be added previously
 
-					LayerMask mask = 1 << trigger.gameObject.layer | obstacleLayers;
+                        LayerMask mask = 1 << trigger.gameObject.layer | obstacleLayers;
 
-					if (Physics.Raycast(_trans.position, direction, out hit, distance, mask)) {
-						GameObject hitGo = hit.collider.gameObject;
+                        if (Physics.Raycast(_trans.position, direction, out hit, distance, mask))
+                        {
+                            GameObject hitGo = hit.collider.gameObject;
 
-						if (hitGo == trigger.gameObject) {
-							triggered = true;
-						}
-						else if (hitGo.layer == trigger.gameObject.layer) {
-							LOSEventTrigger triggerToAdd = hitGo.GetComponentInChildren<LOSEventTrigger>();
-							if (triggerToAdd == null) {
-								triggerToAdd = hitGo.GetComponentInParent<LOSEventTrigger>();
-							}
-							triggeredTriggers.Add(triggerToAdd);
-						}
-					}
-				}
+                            if (hitGo == trigger.gameObject)
+                            {
+                                triggered = true;
+                                break;
+                            }
+                            else if (hitGo.layer == trigger.gameObject.layer)
+                            {
+                                LOSEventTrigger triggerToAdd = hitGo.GetComponentInChildren<LOSEventTrigger>();
+                                if (triggerToAdd == null)
+                                {
+                                    triggerToAdd = hitGo.GetComponentInParent<LOSEventTrigger>();
+                                }
+                                triggeredTriggers.Add(triggerToAdd);
+                            }
+                        }
+                    }
+                }
 
 				if (triggered) {
 					triggeredTriggers.Add(trigger);

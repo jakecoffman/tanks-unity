@@ -14,7 +14,6 @@ public class Level1 : MonoBehaviour {
 
     void GenerateGround()
     {
-        var parent = GameObject.Find("Level1").transform;
         for(var i=1; i<columns-1; i++)
         {
             for (var j=1; j<rows-1; j++)

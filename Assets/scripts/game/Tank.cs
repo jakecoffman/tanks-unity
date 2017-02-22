@@ -146,10 +146,6 @@ public class Tank : NetworkBehaviour {
         {
             _move = -speed;
         }
-        if (_move != 0)
-        {
-            Debug.Log("Trying to move" + _move);
-        }
 
         _rotation = 0f;
         if (Input.GetKey(KeyCode.A))
