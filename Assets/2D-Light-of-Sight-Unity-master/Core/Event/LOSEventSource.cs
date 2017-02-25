@@ -56,27 +56,29 @@ namespace LOS.Event {
                 if (!SHelper.CheckGameObjectInLayer(trigger.gameObject, triggerLayers)) continue;
                 bool triggered = false;
 
+                var tank = trigger.gameObject.transform;
+
                 for (int i = 0; i < 4; i++)
                 {
-                    Vector3 pos = new Vector3();
+                    if (triggered)
+                    {
+                        break;
+                    }
+                    Vector3 pos;
 
-                    // TODO this is stupid
+                    // TODO is this stupid?
                     if (i==0)
                     {
-                        pos.x = trigger.position.x + 0.5f;
-                        pos.y = trigger.position.y + 0.5f;
+                        pos = tank.Find("Edge1").transform.position;
                     } else if (i == 2)
                     {
-                        pos.x = trigger.position.x + 0.5f;
-                        pos.y = trigger.position.y - 0.5f;
+                        pos = tank.Find("Edge2").transform.position;
                     } else if (i==3)
                     {
-                        pos.x = trigger.position.x - 0.5f;
-                        pos.y = trigger.position.y + 0.5f;
+                        pos = tank.Find("Edge3").transform.position;
                     } else
                     {
-                        pos.x = trigger.position.x - 0.5f;
-                        pos.y = trigger.position.y - 0.5f;
+                        pos = tank.Find("Edge4").transform.position;
                     }
 
                     Vector3 direction = pos - _trans.position;
@@ -85,7 +87,10 @@ namespace LOS.Event {
                     {
                         if (!lightSource.CheckDegreeWithinCone(degree))
                         {
-                            notTriggeredTriggers.Add(trigger);
+                            if (i == 4)
+                            {
+                                notTriggeredTriggers.Add(trigger);
+                            }
                             continue;
                         }
                     }
