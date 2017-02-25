@@ -25,7 +25,7 @@ public class Tank : NetworkBehaviour {
 
     void Awake()
     {
-        _turret = transform.GetChild(1).gameObject;
+        _turret = transform.GetChild(0).gameObject;
         _rigid = GetComponent<Rigidbody>();
         _combat = GetComponent<Combat>();
         _nameTag = Instantiate(nameTagPrefab, transform.position, Quaternion.identity) as GameObject;
@@ -34,7 +34,6 @@ public class Tank : NetworkBehaviour {
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Follow>().targetTrans = transform;
         transform.GetChild(0).gameObject.SetActive(true);
     }
 
