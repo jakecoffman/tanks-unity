@@ -304,8 +304,10 @@ public class LobbyManager : NetworkManager
 
         // could be used to check max players per connection, but not sure why I care
         int localPlayerCount = 0;
-        foreach (PlayerController p in ClientScene.localPlayers)
+        foreach (UnityEngine.Networking.PlayerController p in ClientScene.localPlayers)
+        {
             localPlayerCount += (p == null || p.playerControllerId == -1) ? 0 : 1;
+        }
 
         addPlayerButton.SetActive(_playerNumber < maxPlayers);
     }
@@ -863,7 +865,7 @@ public class LobbyManager : NetworkManager
         NetworkServer.AddPlayerForConnection(conn, newLobbyGameObject, playerControllerId);
     }
 
-    public override void OnServerRemovePlayer(NetworkConnection conn, PlayerController player)
+    public override void OnServerRemovePlayer(NetworkConnection conn, UnityEngine.Networking.PlayerController player)
     {
         var playerControllerId = player.playerControllerId;
         byte slot = player.gameObject.GetComponent<LobbyPlayer>().slot;
@@ -929,7 +931,7 @@ public class LobbyManager : NetworkManager
         if (LogFilter.logDebug) { Debug.Log("NetworkLobbyManager OnServerReadyToBeginMessage"); }
         netMsg.ReadMessage(s_ReadyToBeginMessage);
 
-        PlayerController lobbyController = netMsg.conn.playerControllers.First();
+        UnityEngine.Networking.PlayerController lobbyController = netMsg.conn.playerControllers.First();
 
         // set this player ready
         var lobbyPlayer = lobbyController.gameObject.GetComponent<LobbyPlayer>();
@@ -951,7 +953,7 @@ public class LobbyManager : NetworkManager
 
         netMsg.ReadMessage(s_SceneLoadedMessage);
 
-        PlayerController lobbyController = netMsg.conn.playerControllers.First();
+        UnityEngine.Networking.PlayerController lobbyController = netMsg.conn.playerControllers.First();
 
         SceneLoadedForPlayer(netMsg.conn, lobbyController.gameObject);
     }
