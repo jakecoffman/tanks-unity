@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     [SerializeField]
     private GameObject m_CameraPrefab;
@@ -16,6 +17,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit = new RaycastHit();
 
@@ -33,10 +39,10 @@ public class PlayerController : MonoBehaviour
         Vector3 translation = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         translation *= Time.deltaTime * m_MovementSpeed;
 
-        CharacterController controller = gameObject.GetComponent<CharacterController>();
+        Rigidbody controller = gameObject.GetComponent<Rigidbody>();
         if (controller)
         {
-            controller.Move(translation);
+            controller.AddForce(translation * 2.0f);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))

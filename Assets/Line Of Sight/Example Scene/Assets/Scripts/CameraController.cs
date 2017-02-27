@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
     private float m_SmoothTime = 0.3f;
 
     [SerializeField]
-    private Transform m_Target;
+    public Transform m_Target;
 
     private Vector3 m_Velocity = new Vector3(0, 0, 0);
 
