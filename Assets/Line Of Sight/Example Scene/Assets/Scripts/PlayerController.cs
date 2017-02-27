@@ -42,7 +42,7 @@ public class PlayerController : NetworkBehaviour
         Rigidbody controller = gameObject.GetComponent<Rigidbody>();
         if (controller)
         {
-            controller.AddForce(translation * 2.0f);
+            controller.AddForce(translation * 4);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))

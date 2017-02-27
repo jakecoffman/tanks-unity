@@ -12,9 +12,9 @@ public class Tank : NetworkBehaviour {
     public GameObject smokePrefab;
 
     const float speed = 20f;
-    const float turnSpeed = 3.5f;
+    const float turnSpeed = 5f;
 
-    GameObject _camera;
+    GameObject _model;
     GameObject _turret;
 	GameObject _nameTag;
     bool _isFiring = false;
@@ -25,16 +25,11 @@ public class Tank : NetworkBehaviour {
 
     void Awake()
     {
-        _turret = transform.GetChild(0).gameObject;
+        _model = transform.Find("Model").gameObject;
+        _turret = _model.transform.Find("Turret").gameObject;
         _rigid = GetComponent<Rigidbody>();
         _combat = GetComponent<Combat>();
         _nameTag = Instantiate(nameTagPrefab, transform.position, Quaternion.identity) as GameObject;
-    }
-
-    public override void OnStartLocalPlayer()
-    {
-        base.OnStartLocalPlayer();
-        transform.GetChild(0).gameObject.SetActive(true);
     }
 
 	void Start() {
@@ -112,22 +107,15 @@ public class Tank : NetworkBehaviour {
         {
             return;
         }
-        Quaternion deltaRotation = Quaternion.Euler(0, 0, _rotation);
+        Quaternion deltaRotation = Quaternion.Euler(0, _rotation, 0);
         _rigid.MoveRotation(_rigid.rotation * deltaRotation);
-        _rigid.AddForce(transform.up * _move);
+        _rigid.AddForce(transform.forward * _move);
     }
 
     void Aim()
     {
-        Vector3 mouse_pos = Input.mousePosition;
-        mouse_pos.z = 0.0f;
-        Vector3 object_pos = Camera.main.WorldToScreenPoint(transform.position);
-        mouse_pos.x = mouse_pos.x - object_pos.x;
-        mouse_pos.y = mouse_pos.y - object_pos.y;
-        // -90 because my sprite is aiming up
-        float angle = (Mathf.Atan2(mouse_pos.y, mouse_pos.x) * Mathf.Rad2Deg) - 90;
-        Vector3 rotationVector = new Vector3(0, 0, angle);
-        _turret.transform.rotation = Quaternion.Euler(rotationVector);
+        var mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z - transform.position.z));
+        _turret.transform.LookAt(mouse);
     }
 
     void Move()
@@ -149,11 +137,11 @@ public class Tank : NetworkBehaviour {
         _rotation = 0f;
         if (Input.GetKey(KeyCode.A))
         {
-            _rotation += -turnSpeed;
+            _rotation += turnSpeed;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            _rotation += turnSpeed;
+            _rotation += -turnSpeed;
         }
         if (speed > 0)
         {

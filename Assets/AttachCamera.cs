@@ -5,9 +5,11 @@ using UnityEngine.Networking;
 
 public class AttachCamera : NetworkBehaviour {
 
+    public bool debug = false;
+
     void Start()
     {
-        if (isLocalPlayer)
+        if (debug || isLocalPlayer)
         {
             CameraController cc = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
             cc.m_Target = transform;
