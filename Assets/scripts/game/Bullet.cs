@@ -46,6 +46,7 @@ public class Bullet : NetworkBehaviour {
         {
             if (hit == this.combat.gameObject && bounce == 0)
             {
+                // can't hit self before first bounce
                 return;
             }
             var combat = hit.GetComponent<Combat>();

@@ -65,19 +65,19 @@ public class Combat : NetworkBehaviour {
         _shotTimer += Time.deltaTime;
     }
 
-    public IEnumerator Fire(Vector3 position, Vector3 turretRotation)
+    public IEnumerator Fire(Transform barrel)
     {
         if (firedBullets >= maxBullets)
         {
             yield break;
         }
 
-        CmdFire(gameObject, position, turretRotation);
+        CmdFire(gameObject, barrel.position, barrel.rotation);
         yield return new WaitForSeconds(_shotCooldown);
     }
 
     [Command]
-	public void CmdFire(GameObject player, Vector3 position, Vector3 turretRotation) // turretRoration is passed in otherwise server's rotation is used
+	public void CmdFire(GameObject player, Vector3 position, Quaternion turretRotation) // turretRoration is passed in otherwise server's rotation is used
     {
         if (_shotTimer < _shotCooldown)
         {
@@ -89,10 +89,10 @@ public class Combat : NetworkBehaviour {
         }
         _shotTimer = 0;
         firedBullets++;
-        var bullet = Instantiate(bulletPrefab, position, Quaternion.Euler(turretRotation)) as GameObject;
+        var bullet = Instantiate(bulletPrefab, position, turretRotation) as GameObject;
 
         // set direction of bullet and rotation
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.up * shotSpeed;
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * shotSpeed;
         bullet.GetComponent<Bullet>().combat = this;
         bullet.GetComponent<Renderer>().material.color = player.GetComponent<Tank>().color;
         NetworkServer.Spawn (bullet);

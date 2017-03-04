@@ -14,8 +14,9 @@ public class Tank : NetworkBehaviour {
     const float speed = 20f;
     const float turnSpeed = 5f;
 
-    GameObject _model;
-    GameObject _turret;
+    Transform _model;
+    Transform _turret;
+    Transform _barrel;
 	//GameObject _nameTag;
     bool _isFiring = false;
     Combat _combat;
@@ -25,8 +26,9 @@ public class Tank : NetworkBehaviour {
 
     void Awake()
     {
-        _model = transform.Find("Model").gameObject;
-        _turret = _model.transform.Find("TankTurret").gameObject;
+        _model = transform.Find("Model");
+        _turret = _model.Find("TankTurret");
+        _barrel = _turret.Find("Barrel");
         _rigid = GetComponent<Rigidbody>();
         _combat = GetComponent<Combat>();
         //_nameTag = Instantiate(nameTagPrefab, transform.position, Quaternion.identity) as GameObject;
@@ -100,7 +102,7 @@ public class Tank : NetworkBehaviour {
         if (Input.GetMouseButton(0) && !_isFiring)
         {
             _isFiring = true;
-            StartCoroutine(_combat.Fire(_turret.transform.position + _turret.transform.up * 0.6f, _turret.transform.rotation.eulerAngles));
+            StartCoroutine(_combat.Fire(_barrel));
             _isFiring = false;
         }
     }
@@ -126,7 +128,7 @@ public class Tank : NetworkBehaviour {
             Vector3 target = ray.GetPoint(distance);
             Vector3 direction = target - _turret.transform.position;
             float rotation = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-            _turret.transform.rotation = Quaternion.Euler(0, rotation, 0);
+            _turret.rotation = Quaternion.Euler(0, rotation, 0);
         }
     }
 
