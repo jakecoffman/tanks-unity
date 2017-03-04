@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/scenes/NetworkLobby.unity
   - enabled: 0
     path: Assets/scenes/lobby.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/scenes/game.unity
   - enabled: 0
     path: Assets/scenes/game2.unity

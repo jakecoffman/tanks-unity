@@ -16,7 +16,7 @@ public class Tank : NetworkBehaviour {
 
     GameObject _model;
     GameObject _turret;
-	GameObject _nameTag;
+	//GameObject _nameTag;
     bool _isFiring = false;
     Combat _combat;
     Rigidbody _rigid;
@@ -26,10 +26,10 @@ public class Tank : NetworkBehaviour {
     void Awake()
     {
         _model = transform.Find("Model").gameObject;
-        _turret = _model.transform.Find("Turret").gameObject;
+        _turret = _model.transform.Find("TankTurret").gameObject;
         _rigid = GetComponent<Rigidbody>();
         _combat = GetComponent<Combat>();
-        _nameTag = Instantiate(nameTagPrefab, transform.position, Quaternion.identity) as GameObject;
+        //_nameTag = Instantiate(nameTagPrefab, transform.position, Quaternion.identity) as GameObject;
     }
 
 	void Start() {
@@ -37,6 +37,7 @@ public class Tank : NetworkBehaviour {
 		{
 			r.material.color = color;
 		}
+        /*
         if (isLocalPlayer)
         {
             _nameTag.GetComponentInChildren<TextMesh>().text = "You";
@@ -49,8 +50,9 @@ public class Tank : NetworkBehaviour {
         _nameTag.GetComponentInChildren<Renderer>().sortingLayerName = "Player";
         ShowNameTags();
         StartCoroutine("FadeOut");
+        */
     }
-
+    /*
     void ShowNameTags()
     {
         var renderer = _nameTag.GetComponentInChildren<Renderer>();
@@ -75,9 +77,10 @@ public class Tank : NetworkBehaviour {
     {
          _nameTag.transform.position = transform.position;
     }
-
+    */
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             StopCoroutine("FadeOut");
@@ -87,6 +90,7 @@ public class Tank : NetworkBehaviour {
         {
             StartCoroutine("FadeOut");
         }
+        */
         if (!isLocalPlayer || _combat.isDead)
         {
             return;
@@ -114,8 +118,16 @@ public class Tank : NetworkBehaviour {
 
     void Aim()
     {
-        var mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z - transform.position.z));
-        _turret.transform.LookAt(mouse);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane plane = new Plane(Vector3.up, Vector3.zero);
+        float distance;
+        if (plane.Raycast(ray, out distance))
+        {
+            Vector3 target = ray.GetPoint(distance);
+            Vector3 direction = target - _turret.transform.position;
+            float rotation = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            _turret.transform.rotation = Quaternion.Euler(0, rotation, 0);
+        }
     }
 
     void Move()
