@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
   - component: {fileID: 11419098}
-  m_Layer: 4
+  m_Layer: 14
   m_Name: Wall_T_Corner_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ GameObject:
   - component: {fileID: 3300002}
   - component: {fileID: 2300002}
   - component: {fileID: 6400000}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Wall_T_Corner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,6 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763e945e342a03740adb30e62449596d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_IsDynamicBatchingDisabled: 0
+  m_IsStatic: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

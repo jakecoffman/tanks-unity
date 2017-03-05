@@ -10,7 +10,7 @@ GameObject:
   - component: {fileID: 441990}
   - component: {fileID: 19897866}
   - component: {fileID: 19959230}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Burst
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 19870274}
   - component: {fileID: 19918912}
   - component: {fileID: 8204558}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: ShellExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 489716}
   - component: {fileID: 19830090}
   - component: {fileID: 19926060}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Trails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,12 +65,12 @@ GameObject:
   - component: {fileID: 13693818}
   - component: {fileID: 5409530}
   - component: {fileID: 10833074}
-  - component: {fileID: 11426614}
   - component: {fileID: 114365899574073052}
   - component: {fileID: 114530711561876462}
-  m_Layer: 0
+  - component: {fileID: 114055991669024442}
+  m_Layer: 17
   m_Name: Shell
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,7 +138,7 @@ MeshRenderer:
   m_GameObject: {fileID: 192454}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -298,26 +298,6 @@ Light:
   m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &11426614
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 192454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af9894b7bced3a04c870ade3c621f94e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TankMask:
-    serializedVersion: 2
-    m_Bits: 512
-  m_ExplosionParticles: {fileID: 19870274}
-  m_ExplosionAudio: {fileID: 8204558}
-  m_MaxDamage: 100
-  m_ExplosionForce: 1000
-  m_MaxLifeTime: 2
-  m_ExplosionRadius: 5
 --- !u!136 &13693818
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -8409,6 +8389,19 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 192454}
   m_IsPrefabParent: 1
+--- !u!114 &114055991669024442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 192454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 763e945e342a03740adb30e62449596d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsDynamicBatchingDisabled: 1
+  m_IsStatic: 0
 --- !u!114 &114365899574073052
 MonoBehaviour:
   m_ObjectHideFlags: 1
