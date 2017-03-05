@@ -6,7 +6,7 @@ public class Combat : NetworkBehaviour {
 
     public GameObject bulletPrefab;
 
-    const float shotSpeed = 5f;
+    const float shotSpeed = 10f;
     const int maxHealth = 1;
 
     [SyncVar]
@@ -94,7 +94,7 @@ public class Combat : NetworkBehaviour {
         // set direction of bullet and rotation
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * shotSpeed;
         bullet.GetComponent<Bullet>().combat = this;
-        bullet.GetComponent<Renderer>().material.color = player.GetComponent<Tank>().color;
+        bullet.GetComponent<Renderer>().materials[0].color = player.transform.Find("Model").Find("TankChassis").GetComponent<Renderer>().materials[0].color;
         NetworkServer.Spawn (bullet);
         //RpcFired(bullet, player);
         Destroy(bullet, 10.0f);

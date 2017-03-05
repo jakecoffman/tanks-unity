@@ -68,7 +68,7 @@ public class Bullet : NetworkBehaviour {
 			if (bounce < 1) {
                 bounce++;
 
-				_rigid.velocity = Vector2.Reflect(_rigid.velocity, rayHit.normal);
+				_rigid.velocity = Vector3.Reflect(_rigid.velocity, rayHit.normal);
                 transform.rotation = new Quaternion(-transform.rotation.x, transform.rotation.y, transform.rotation.z, -transform.rotation.w);
 				Predestine();
 
