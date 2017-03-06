@@ -97,6 +97,5 @@ public class Combat : NetworkBehaviour {
         bullet.GetComponent<Renderer>().materials[0].color = player.transform.Find("Model").Find("TankChassis").GetComponent<Renderer>().materials[0].color;
         NetworkServer.Spawn (bullet);
         //RpcFired(bullet, player);
-        Destroy(bullet, 10.0f);
     }
 }

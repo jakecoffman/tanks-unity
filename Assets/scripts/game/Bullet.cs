@@ -20,6 +20,13 @@ public class Bullet : NetworkBehaviour {
         {
             Predestine();
         }
+        StartCoroutine(SpendAfter());
+    }
+
+    IEnumerator SpendAfter()
+    {
+        yield return new WaitForSeconds(6f);
+        SpendBullet();
     }
 
     // the physics is unreliable so occationally (like at start or after bounce) we recalculate the wall we expect to 
@@ -30,6 +37,7 @@ public class Bullet : NetworkBehaviour {
         if (!wasHit)
         {
             Debug.Log("Raycast hit nothing. Out of bounds?" + transform.position);
+            SpendBullet();
         }
 	}
 
@@ -68,8 +76,10 @@ public class Bullet : NetworkBehaviour {
 			if (bounce < 1) {
                 bounce++;
 
-				_rigid.velocity = Vector3.Reflect(_rigid.velocity, rayHit.normal);
-                transform.rotation = new Quaternion(-transform.rotation.x, transform.rotation.y, transform.rotation.z, -transform.rotation.w);
+				var vel = Vector3.Reflect(_rigid.velocity, rayHit.normal);
+                vel.y = 0;
+                _rigid.velocity = vel;
+                transform.rotation = Quaternion.LookRotation(_rigid.velocity);
 				Predestine();
 
                 RpcBounced(_rigid.velocity, transform.rotation);
@@ -92,7 +102,10 @@ public class Bullet : NetworkBehaviour {
     [ClientRpc]
     void RpcBounced(Vector2 velocity, Quaternion rotation)
     {
-        _rigid.velocity = velocity;
-        transform.rotation = rotation;
+        if (!isServer)
+        {
+            _rigid.velocity = velocity;
+            transform.rotation = rotation;
+        }
     }
 }
