@@ -11,9 +11,9 @@ public class AttachCamera : NetworkBehaviour {
         {
             transform.Find("360 LOS Source High Precision").gameObject.SetActive(true);
             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().m_Target = transform;
-            //Transform model = transform.Find("Model");
-            //model.GetComponent<LOS.LOSCuller>().enabled = false;
-            //model.GetComponent<LOS.LOSObjectHider>().enabled = false;
+            Transform model = transform.Find("Model");
+            model.GetComponent<LOS.TankCuller>().enabled = false;
+            model.GetComponent<LOS.TankHider>().enabled = false;
         }
     }
 }
