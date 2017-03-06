@@ -10787,7 +10787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Shader: {fileID: 4800000, guid: 2b6a538e428c46a43b25dd43e69ef78f, type: 3}
-  m_Brightness: 0.42
+  m_Brightness: 0
 --- !u!4 &1725213226 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400002, guid: 1fe3175e246b14b4183ba015c8c48110, type: 2}

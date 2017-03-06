@@ -19,8 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4966396550047566}
-  - component: {fileID: 114936205730003716}
-  - component: {fileID: 114802568144660860}
   m_Layer: 1
   m_Name: Model
   m_TagString: Untagged
@@ -1097,17 +1095,6 @@ MonoBehaviour:
   color: {r: 0, g: 0, b: 0, a: 0}
   nameTagPrefab: {fileID: 0}
   smokePrefab: {fileID: 0}
---- !u!114 &114802568144660860
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1030719905088202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e42385225ff56c746a73f6dca64be704, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114836848694981842
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1150,20 +1137,6 @@ MonoBehaviour:
   m_BackfacesFade: 0.1
   m_MinVariance: 0.1
   m_OutOfBoundArea: 2
---- !u!114 &114936205730003716
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1030719905088202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f8f4477e224cb448ab7eec8d6187ddb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RaycastLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &114938226478359606
 MonoBehaviour:
   m_ObjectHideFlags: 1

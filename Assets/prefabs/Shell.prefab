@@ -66,8 +66,6 @@ GameObject:
   - component: {fileID: 5409530}
   - component: {fileID: 114365899574073052}
   - component: {fileID: 114530711561876462}
-  - component: {fileID: 114628778435849070}
-  - component: {fileID: 114704225542487984}
   m_Layer: 17
   m_Name: Shell
   m_TagString: Bullet
@@ -8400,28 +8398,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combat: {fileID: 0}
   damageGiven: 1
---- !u!114 &114628778435849070
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 192454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3417c49995cbcea4aa2a73ebdf103693, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RaycastLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &114704225542487984
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 192454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6b334c0935829642b595f043fde9963, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
