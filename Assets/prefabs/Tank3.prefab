@@ -19,6 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4966396550047566}
+  - component: {fileID: 114936205730003716}
+  - component: {fileID: 114802568144660860}
   m_Layer: 1
   m_Name: Model
   m_TagString: Untagged
@@ -36,8 +38,6 @@ GameObject:
   - component: {fileID: 4008252666983044}
   - component: {fileID: 33781930473739208}
   - component: {fileID: 23299243591144112}
-  - component: {fileID: 114845208955279724}
-  - component: {fileID: 114388697747858232}
   m_Layer: 1
   m_Name: TankTracksLeft
   m_TagString: Untagged
@@ -55,8 +55,6 @@ GameObject:
   - component: {fileID: 4205218714602962}
   - component: {fileID: 33741424078312690}
   - component: {fileID: 23055956642819222}
-  - component: {fileID: 114783207452327056}
-  - component: {fileID: 114299756195046550}
   m_Layer: 1
   m_Name: TankTurret
   m_TagString: Untagged
@@ -140,8 +138,6 @@ GameObject:
   - component: {fileID: 4287076166559898}
   - component: {fileID: 33519107664180536}
   - component: {fileID: 23591630734577890}
-  - component: {fileID: 114627363382269032}
-  - component: {fileID: 114267331791894336}
   m_Layer: 1
   m_Name: TankChassis
   m_TagString: Untagged
@@ -174,8 +170,6 @@ GameObject:
   - component: {fileID: 4900732602596858}
   - component: {fileID: 33192943415967358}
   - component: {fileID: 23605556079313664}
-  - component: {fileID: 114159283317899828}
-  - component: {fileID: 114756097699500036}
   m_Layer: 1
   m_Name: TankTracksRight
   m_TagString: Untagged
@@ -966,20 +960,6 @@ MonoBehaviour:
   m_BackfacesFade: 0.1
   m_MinVariance: 0.1
   m_OutOfBoundArea: 2
---- !u!114 &114159283317899828
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1409405329862012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3417c49995cbcea4aa2a73ebdf103693, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RaycastLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &114170647552682172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1069,39 +1049,6 @@ MonoBehaviour:
     i15: 232
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114267331791894336
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1347325343508780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6b334c0935829642b595f043fde9963, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114299756195046550
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1099964065475422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6b334c0935829642b595f043fde9963, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114388697747858232
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1073219204822050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6b334c0935829642b595f043fde9963, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114621965115102844
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1113,20 +1060,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7849bc72344f294c8b5234f3e84545f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114627363382269032
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1347325343508780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3417c49995cbcea4aa2a73ebdf103693, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RaycastLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &114686534061012210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1164,31 +1097,17 @@ MonoBehaviour:
   color: {r: 0, g: 0, b: 0, a: 0}
   nameTagPrefab: {fileID: 0}
   smokePrefab: {fileID: 0}
---- !u!114 &114756097699500036
+--- !u!114 &114802568144660860
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1409405329862012}
+  m_GameObject: {fileID: 1030719905088202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6b334c0935829642b595f043fde9963, type: 3}
+  m_Script: {fileID: 11500000, guid: e42385225ff56c746a73f6dca64be704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114783207452327056
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1099964065475422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3417c49995cbcea4aa2a73ebdf103693, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RaycastLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &114836848694981842
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1209,20 +1128,6 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 0
   m_InterpolateMovement: 0
---- !u!114 &114845208955279724
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1073219204822050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3417c49995cbcea4aa2a73ebdf103693, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RaycastLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &114859946529172080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1245,6 +1150,20 @@ MonoBehaviour:
   m_BackfacesFade: 0.1
   m_MinVariance: 0.1
   m_OutOfBoundArea: 2
+--- !u!114 &114936205730003716
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030719905088202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8f4477e224cb448ab7eec8d6187ddb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RaycastLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &114938226478359606
 MonoBehaviour:
   m_ObjectHideFlags: 1
