@@ -9,15 +9,11 @@ public class AttachCamera : NetworkBehaviour {
     {
         if (isLocalPlayer)
         {
-            CameraController cc = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
-            cc.m_Target = transform;
-        } else { 
-            transform.Find("360 LOS Source High Precision").gameObject.SetActive(false);
+            transform.Find("360 LOS Source High Precision").gameObject.SetActive(true);
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().m_Target = transform;
             Transform model = transform.Find("Model");
-            model.GetComponent<LOS.LOSVisibilityInfo>().enabled = false;
-            model.GetComponent<LOS.LOSStencilRenderer>().enabled = false;
-            model.GetComponent<LOS.LOSCuller>().enabled = true;
-            model.GetComponent<LOS.LOSObjectHider>().enabled = true;
+            model.GetComponent<LOS.LOSCuller>().enabled = false;
+            model.GetComponent<LOS.LOSObjectHider>().enabled = false;
         }
     }
 }

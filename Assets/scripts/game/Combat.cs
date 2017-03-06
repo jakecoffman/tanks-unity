@@ -33,9 +33,9 @@ public class Combat : NetworkBehaviour {
             health = 0;
             isDead = true;
             RpcDie();
-            smoke = Instantiate(GetComponent<Tank>().smokePrefab, transform.position, Quaternion.identity) as GameObject;
-            GameObject gameManager = GameObject.FindGameObjectWithTag("GameController");
-            gameManager.GetComponent<GameManager>().RemoveTank(gameObject);
+            //smoke = Instantiate(GetComponent<Tank>().smokePrefab, transform.position, Quaternion.identity) as GameObject;
+            //GameObject gameManager = GameObject.FindGameObjectWithTag("GameController");
+            //gameManager.GetComponent<GameManager>().RemoveTank(gameObject);
         }
     }
 
@@ -51,7 +51,7 @@ public class Combat : NetworkBehaviour {
         {
             r.material.color = Color.gray;
         }
-		smoke = Instantiate (GetComponent<Tank> ().smokePrefab, transform.position, Quaternion.identity) as GameObject;
+		//smoke = Instantiate (GetComponent<Tank> ().smokePrefab, transform.position, Quaternion.identity) as GameObject;
     }
 
 	void FixedUpdate() {

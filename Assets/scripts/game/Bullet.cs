@@ -57,9 +57,9 @@ public class Bullet : NetworkBehaviour {
                 // can't hit self before first bounce
                 return;
             }
+            SpendBullet();
             var combat = hit.GetComponent<Combat>();
             combat.TakeDamage(damageGiven);
-			SpendBullet ();
         }
         else if (hit.tag == "Wall")
         {
