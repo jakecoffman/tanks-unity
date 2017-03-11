@@ -5,6 +5,7 @@ using System.Collections;
 public class Combat : NetworkBehaviour {
 
     public GameObject bulletPrefab;
+    public GameObject tankExplosionPrefab;
 
     const float shotSpeed = 10f;
     const int maxHealth = 1;
@@ -14,8 +15,6 @@ public class Combat : NetworkBehaviour {
     [SyncVar]
     public bool isDead = false;
 
-	GameObject smoke;
-
     [HideInInspector]
     [SyncVar]
     public int firedBullets = 0;
@@ -23,6 +22,21 @@ public class Combat : NetworkBehaviour {
 
     float _shotCooldown = 0.2f;
     float _shotTimer = 0;
+
+    ParticleSystem _explosionParticles;
+    AudioSource _explosionAudio;
+
+    void Awake()
+    {
+        // Instantiate the explosion prefab and get a reference to the particle system on it.
+        _explosionParticles = Instantiate(tankExplosionPrefab).GetComponent<ParticleSystem>();
+
+        // Get a reference to the audio source on the instantiated prefab.
+        _explosionAudio = _explosionParticles.GetComponent<AudioSource>();
+
+        // Disable the prefab so it can be activated when it's required.
+        _explosionParticles.gameObject.SetActive(false);
+    }
 
     [Server]
     public void TakeDamage(int amount)
@@ -33,9 +47,9 @@ public class Combat : NetworkBehaviour {
             health = 0;
             isDead = true;
             RpcDie();
-            //smoke = Instantiate(GetComponent<Tank>().smokePrefab, transform.position, Quaternion.identity) as GameObject;
-            //GameObject gameManager = GameObject.FindGameObjectWithTag("GameController");
-            //gameManager.GetComponent<GameManager>().RemoveTank(gameObject);
+
+            GameObject gameManager = GameObject.Find("GameManager");
+            gameManager.GetComponent<GameManager>().RemoveTank(gameObject);
         }
     }
 
@@ -44,21 +58,26 @@ public class Combat : NetworkBehaviour {
     {
         if (!isServer)
         {
-            GameObject gameManager = GameObject.FindGameObjectWithTag("GameController");
+            GameObject gameManager = GameObject.Find("GameManager");
             gameManager.GetComponent<GameManager>().RemoveTank(gameObject);
         }
-        foreach (SpriteRenderer r in GetComponentsInChildren<SpriteRenderer>())
+        
+        foreach (Renderer r in GetComponentsInChildren<Renderer>())
         {
-            r.material.color = Color.gray;
+            r.material.color = Color.black;
         }
-		//smoke = Instantiate (GetComponent<Tank> ().smokePrefab, transform.position, Quaternion.identity) as GameObject;
-    }
+        // Move the instantiated explosion prefab to the tank's position and turn it on.
+        var pos = transform.position;
+        pos.y += 5;
+        _explosionParticles.transform.position = pos;
+        _explosionParticles.gameObject.SetActive(true);
 
-	void FixedUpdate() {
-		if (smoke != null) {
-			smoke.transform.position = transform.position;
-		}
-	}
+        // Play the particle system of the tank exploding.
+        _explosionParticles.Play();
+
+        // Play the tank explosion sound effect.
+        _explosionAudio.Play();
+    }
 
     void Update()
     {
