@@ -68,11 +68,12 @@ public class Tank : NetworkBehaviour {
 
     void OnGUI()
     {
-         _nameTag.transform.position = transform.position;
+        _nameTag.position = transform.position;
     }
     
     void Update()
     {
+        _nameTag.eulerAngles = new Vector3(90, 0, 0);
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             StopCoroutine("FadeOut");
@@ -94,6 +95,7 @@ public class Tank : NetworkBehaviour {
             StartCoroutine(_combat.Fire(_barrel));
             _isFiring = false;
         }
+        
     }
 
     void FixedUpdate()
