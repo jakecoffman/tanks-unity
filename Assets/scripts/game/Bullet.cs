@@ -100,12 +100,13 @@ public class Bullet : NetworkBehaviour {
     }
 
     [ClientRpc]
-    void RpcBounced(Vector2 velocity, Quaternion rotation)
+    void RpcBounced(Vector3 velocity, Quaternion rotation)
     {
-        if (!isServer)
+        if (isServer)
         {
-            _rigid.velocity = velocity;
-            transform.rotation = rotation;
+            return;
         }
+        _rigid.velocity = velocity;
+        transform.rotation = rotation;
     }
 }

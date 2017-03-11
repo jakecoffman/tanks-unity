@@ -96,6 +96,16 @@ public class Combat : NetworkBehaviour {
         bullet.GetComponent<Bullet>().combat = this;
         bullet.GetComponent<Renderer>().materials[0].color = player.transform.Find("Model").Find("TankChassis").GetComponent<Renderer>().materials[0].color;
         NetworkServer.Spawn (bullet);
-        //RpcFired(bullet, player);
+        RpcFired(bullet, player);
+    }
+
+    [ClientRpc]
+    public void RpcFired(GameObject bullet, GameObject player)
+    {
+        if (isServer)
+        {
+            return;
+        }
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * shotSpeed;
     }
 }
