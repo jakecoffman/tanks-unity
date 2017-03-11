@@ -25,6 +25,7 @@ public class Combat : NetworkBehaviour {
 
     ParticleSystem _explosionParticles;
     AudioSource _explosionAudio;
+    Transform _model;
 
     void Awake()
     {
@@ -36,6 +37,8 @@ public class Combat : NetworkBehaviour {
 
         // Disable the prefab so it can be activated when it's required.
         _explosionParticles.gameObject.SetActive(false);
+
+        _model = transform.Find("Model");
     }
 
     [Server]
@@ -62,7 +65,7 @@ public class Combat : NetworkBehaviour {
             gameManager.GetComponent<GameManager>().RemoveTank(gameObject);
         }
         
-        foreach (Renderer r in GetComponentsInChildren<Renderer>())
+        foreach (Renderer r in _model.GetComponentsInChildren<Renderer>())
         {
             r.material.color = Color.black;
         }
@@ -113,7 +116,6 @@ public class Combat : NetworkBehaviour {
         // set direction of bullet and rotation
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * shotSpeed;
         bullet.GetComponent<Bullet>().combat = this;
-        bullet.GetComponent<Renderer>().materials[0].color = player.transform.Find("Model").Find("TankChassis").GetComponent<Renderer>().materials[0].color;
         NetworkServer.Spawn (bullet);
         RpcFired(bullet, player);
     }
@@ -121,10 +123,10 @@ public class Combat : NetworkBehaviour {
     [ClientRpc]
     public void RpcFired(GameObject bullet, GameObject player)
     {
-        if (isServer)
+        if (!isServer)
         {
-            return;
+            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * shotSpeed;
         }
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * shotSpeed;
+        bullet.GetComponent<Renderer>().materials[0].color = player.transform.Find("Model").Find("TankChassis").GetComponent<Renderer>().materials[0].color;
     }
 }

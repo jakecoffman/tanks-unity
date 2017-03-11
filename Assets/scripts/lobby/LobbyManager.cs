@@ -372,8 +372,8 @@ public class LobbyManager : NetworkManager
         LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer>();
         Tank tank = gamePlayer.GetComponent<Tank>();
 
-        //tank.playerName = lobby.playerName;
-        //tank.color = lobby.playerColor;
+        tank.playerName = lobby.playerName;
+        tank.color = lobby.playerColor;
         
         return true;
     }

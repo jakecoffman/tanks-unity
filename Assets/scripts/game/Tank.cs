@@ -17,7 +17,7 @@ public class Tank : NetworkBehaviour {
     Transform _model;
     Transform _turret;
     Transform _barrel;
-	//GameObject _nameTag;
+	Transform _nameTag;
     bool _isFiring = false;
     Combat _combat;
     Rigidbody _rigid;
@@ -31,30 +31,21 @@ public class Tank : NetworkBehaviour {
         _barrel = _turret.Find("Barrel");
         _rigid = GetComponent<Rigidbody>();
         _combat = GetComponent<Combat>();
-        //_nameTag = Instantiate(nameTagPrefab, transform.position, Quaternion.identity) as GameObject;
+        _nameTag = transform.Find("Name");
     }
 
 	void Start() {
-        foreach (SpriteRenderer r in GetComponentsInChildren<SpriteRenderer>())
+        foreach (Renderer r in _model.GetComponentsInChildren<Renderer>())
 		{
 			r.material.color = color;
 		}
-        /*
-        if (isLocalPlayer)
-        {
-            _nameTag.GetComponentInChildren<TextMesh>().text = "You";
-        }
-        else
-        {
-            _nameTag.GetComponentInChildren<TextMesh>().text = playerName;
-        }
+        _nameTag.GetComponentInChildren<TextMesh>().text = playerName;
         _nameTag.GetComponentInChildren<MeshRenderer>().enabled = true;
         _nameTag.GetComponentInChildren<Renderer>().sortingLayerName = "Player";
         ShowNameTags();
         StartCoroutine("FadeOut");
-        */
     }
-    /*
+    
     void ShowNameTags()
     {
         var renderer = _nameTag.GetComponentInChildren<Renderer>();
@@ -79,10 +70,9 @@ public class Tank : NetworkBehaviour {
     {
          _nameTag.transform.position = transform.position;
     }
-    */
+    
     void Update()
     {
-        /*
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             StopCoroutine("FadeOut");
@@ -92,7 +82,6 @@ public class Tank : NetworkBehaviour {
         {
             StartCoroutine("FadeOut");
         }
-        */
         if (!isLocalPlayer || _combat.isDead)
         {
             return;
