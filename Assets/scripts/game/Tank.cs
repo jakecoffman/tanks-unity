@@ -79,7 +79,7 @@ public class Tank : NetworkBehaviour {
             StopCoroutine("FadeOut");
             ShowNameTags();
         }
-        else if (Input.GetKeyUp(KeyCode.Tab))
+        else if (Input.GetKeyUp(KeyCode.Tab)) // TODO: Button?
         {
             StartCoroutine("FadeOut");
         }
@@ -89,7 +89,7 @@ public class Tank : NetworkBehaviour {
         }
         Move();
         Aim();
-        if (Input.GetMouseButton(0) && !_isFiring)
+        if ((Input.GetButton("Fire1") || Input.GetAxis("Fire1Too") != 0 ) && !_isFiring)
         {
             _isFiring = true;
             StartCoroutine(_combat.Fire(_barrel));
@@ -111,6 +111,18 @@ public class Tank : NetworkBehaviour {
 
     void Aim()
     {
+        if (Input.GetJoystickNames().Length > 0)
+        {
+            var x = Input.GetAxis("RightStickX");
+            var y = Input.GetAxis("RightStickY");
+            if (new Vector3(x, y, 0).sqrMagnitude < 0.1f)
+            {
+                return;
+            }
+            var angle = Mathf.Atan2(x, y*-1) * Mathf.Rad2Deg;
+            _turret.rotation = Quaternion.Euler(0, angle, 0);
+            return;
+        }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane plane = new Plane(Vector3.up, Vector3.zero);
         float distance;
@@ -123,34 +135,13 @@ public class Tank : NetworkBehaviour {
         }
     }
 
-    void Move()
+    private void Move()
     {
 		if (_isFiring) {
 			return;
 		}
 
-        _move = 0;
-        if(Input.GetKey(KeyCode.W))
-        {
-            _move = speed;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            _move = -speed;
-        }
-
-        _rotation = 0f;
-        if (Input.GetKey(KeyCode.A))
-        {
-            _rotation += turnSpeed;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            _rotation += -turnSpeed;
-        }
-        if (speed > 0)
-        {
-            _rotation *= -1;
-        }
+        _move = Input.GetAxis("Vertical") * speed;
+        _rotation = Input.GetAxis("Horizontal") * turnSpeed;
     }
 }
