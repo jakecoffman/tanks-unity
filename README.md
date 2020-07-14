@@ -1,5 +1,3 @@
 # tanks-unity
 
-This game is now closed source. I will not be updating this code or accepting pull requests. 
-
-I will still use this for issue/feature tracking and releases.
+Wii tanks style multiplayer tank game with [Monaco style line-of-sight](https://forum.unity.com/threads/free-gpu-line-of-sight-field-of-view.257324/).
